@@ -1,0 +1,2 @@
+1,Singe Bed
+2,Double Bed
