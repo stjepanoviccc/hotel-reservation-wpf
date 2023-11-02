@@ -18,7 +18,7 @@ namespace HotelReservations.Service
 
         public List<Room> GetAllRooms()
         {
-            return Hotel.GetInstance().Rooms;
+            return Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList(); ;
         }
 
         public List<Room> GetSortedRooms()
@@ -50,6 +50,13 @@ namespace HotelReservations.Service
             existingRoom.RoomType = newRoomData.RoomType;
             // OBAVEZNO PITATI PROFESORA!!!
             DataUtil.PersistData();
+        }
+
+        // make room inactive (logical delete);
+        public void MakeRoomInactive(Room room)
+        {
+            var makeRoomInactive = Hotel.GetInstance().Rooms.Find(r => r.Id == room.Id);
+            makeRoomInactive.IsActive = false;
         }
 
         public int GetNextId()

@@ -22,3 +22,5 @@ C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\AddEditRoom.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms.baml
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\DeleteRoom.g.cs
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\DeleteRoom.baml

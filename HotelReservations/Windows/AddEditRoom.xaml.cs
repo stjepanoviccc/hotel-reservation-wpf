@@ -35,7 +35,6 @@ namespace HotelReservations.Windows
 
         public void AdjustWindow(Room? room = null)
         {
-
             if (room != null)
             {
                 Title = "Edit Room";
@@ -44,7 +43,6 @@ namespace HotelReservations.Windows
             else
             {
                 Title = "Add Room";
-
                 var roomTypeList = roomTypeService.GetAllRoomTypes();
 
                 foreach (var roomType in roomTypeList)

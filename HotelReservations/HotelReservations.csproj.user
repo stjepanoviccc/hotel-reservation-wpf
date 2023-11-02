@@ -7,10 +7,18 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Windows\DeleteRoom.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\AddEditRoom.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\DeleteRoom.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\Rooms.xaml">

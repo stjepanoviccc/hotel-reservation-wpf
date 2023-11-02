@@ -3,6 +3,5 @@
 3,03,False,False,1,True
 4,04,True,True,1,True
 5,05,True,True,1,True
-6,06,False,False,2,True
+6,06,False,False,2,False
 7,07,False,True,2,True
-8,08,False,True,2,True

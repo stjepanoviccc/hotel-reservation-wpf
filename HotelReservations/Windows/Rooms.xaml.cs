@@ -58,17 +58,34 @@ namespace HotelReservations.Windows
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            var editRoomWindow = new AddEditRoom((Room)RoomsDataGrid.SelectedItem);
+            var chosenRoom = (Room)RoomsDataGrid.SelectedItem;
+            if(chosenRoom == null)
+            {
+                return;
+            }
+            var editRoomWindow = new AddEditRoom(chosenRoom);
             Hide();
             if (editRoomWindow.ShowDialog() == true)
             {
                 FillData();
             }
+            Show();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var chosenRoom = (Room)RoomsDataGrid.SelectedItem;
+            if (chosenRoom == null)
+            {
+                return;
+            }
+            var deleteRoomWindow = new DeleteRoom(chosenRoom);
+            Hide();
+            if (deleteRoomWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+            Show();
         }
     }
 }
