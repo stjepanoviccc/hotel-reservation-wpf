@@ -69,7 +69,6 @@ namespace HotelReservations.Repository
                         {
                             rooms.Add(room);
                         }
-                        
                     }
 
                     return rooms;

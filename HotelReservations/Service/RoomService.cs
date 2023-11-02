@@ -40,6 +40,18 @@ namespace HotelReservations.Service
             Hotel.GetInstance().Rooms.Add(newRoom);
         }
 
+        public void OverwriteRoom(Room newRoomData)
+        {
+            var existingRoom = Hotel.GetInstance().Rooms.Find(room => room.Id == newRoomData.Id);
+            existingRoom.RoomNumber = newRoomData.RoomNumber;
+            existingRoom.HasTV = newRoomData.HasTV;
+            existingRoom.HasMiniBar = newRoomData.HasMiniBar;
+            existingRoom.IsActive = newRoomData.IsActive;
+            existingRoom.RoomType = newRoomData.RoomType;
+            // OBAVEZNO PITATI PROFESORA!!!
+            DataUtil.PersistData();
+        }
+
         public int GetNextId()
         {
             return Hotel.GetInstance().Rooms.Max(r => r.Id) + 1;

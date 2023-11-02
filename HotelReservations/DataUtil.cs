@@ -114,7 +114,6 @@ namespace HotelReservations
             {
                 IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
                 roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
-
             } catch (CouldntPersistDataException)
             {
                 Console.WriteLine("Call an administrator, something weird is happening with the files");
