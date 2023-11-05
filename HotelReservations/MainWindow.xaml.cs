@@ -32,5 +32,11 @@ namespace HotelReservations
             var roomsWindow = new Rooms();
             roomsWindow.Show();
         }
+
+        private void RoomTypeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var roomTypeWindow = new RoomTypes();
+            roomTypeWindow.Show();
+        }
     }
 }

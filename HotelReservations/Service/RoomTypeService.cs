@@ -29,7 +29,7 @@ namespace HotelReservations.Service
             Hotel.GetInstance().RoomTypes.Add(roomType);
         } 
 
-        public int GetNextRoomTypeId(int roomTypeId)
+        public int GetNextId()
         {
             return Hotel.GetInstance().RoomTypes.Max(r => r.Id) + 1;
         }

@@ -7,7 +7,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Windows\DeleteRoom.xaml.cs">
+    <Compile Update="Windows\RoomTypes\AddRoomType.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Rooms\DeleteRoom.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\RoomTypes\RoomTypes.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -15,13 +21,19 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\AddEditRoom.xaml">
+    <Page Update="Windows\Rooms\AddEditRoom.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\DeleteRoom.xaml">
+    <Page Update="Windows\RoomTypes\AddRoomType.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Rooms.xaml">
+    <Page Update="Windows\Rooms\DeleteRoom.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\Rooms\Rooms.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\RoomTypes\RoomTypes.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

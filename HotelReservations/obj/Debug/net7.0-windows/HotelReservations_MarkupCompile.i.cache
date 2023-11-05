@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\App.xaml
-4-47797320
+6-1351846230
 
-27-579435638
+29842346595
 198-200740077
-MainWindow.xaml;Windows\AddEditRoom.xaml;Windows\DeleteRoom.xaml;Windows\Rooms.xaml;
+MainWindow.xaml;Windows\Rooms\AddEditRoom.xaml;Windows\Rooms\DeleteRoom.xaml;Windows\Rooms\Rooms.xaml;Windows\RoomTypes\AddRoomType.xaml;Windows\RoomTypes\RoomTypes.xaml;
 
 True
 

@@ -1,2 +1,4 @@
 1,Singe Bed
 2,Double Bed
+3,Three bed
+4,Four bed

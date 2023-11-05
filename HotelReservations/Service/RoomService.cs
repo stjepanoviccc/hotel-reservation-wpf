@@ -48,8 +48,6 @@ namespace HotelReservations.Service
             existingRoom.HasMiniBar = newRoomData.HasMiniBar;
             existingRoom.IsActive = newRoomData.IsActive;
             existingRoom.RoomType = newRoomData.RoomType;
-            // OBAVEZNO PITATI PROFESORA!!!
-            DataUtil.PersistData();
         }
 
         // make room inactive (logical delete);

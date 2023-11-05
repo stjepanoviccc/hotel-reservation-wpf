@@ -14,16 +14,9 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
-            <MenuItem BorderBrush="Black"
-                Padding="5,0,5,0"
-                Header="General"
-                Height="30">
-                <MenuItem 
-                    Name="RoomsMenuItem" 
-                    Header="Rooms"
-                    Click="RoomsMenuItem_Click"
-                    />
-
+            <MenuItem Padding="5,0,5,0" Header="General" Height="30">
+                <MenuItem Name="RoomsMenuItem" Header="Rooms" Click="RoomsMenuItem_Click" />
+                <MenuItem Name="RoomTypeMenuItem" Header="RoomTypes" Click="RoomTypeMenuItem_Click" />
             </MenuItem>
         </Menu>
     </Grid>
