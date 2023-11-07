@@ -2,6 +2,7 @@
 using HotelReservations.Service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace HotelReservations.Windows
     /// </summary>
     public partial class RoomTypes : Window
     {
+        private ICollectionView view;
         public RoomTypes()
         {
             InitializeComponent();
@@ -32,9 +34,26 @@ namespace HotelReservations.Windows
             var roomTypeService = new RoomTypeService();
             var roomTypes = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
 
+            view = CollectionViewSource.GetDefaultView(roomTypes);
+            view.Filter = DoFilter;
+
             RoomTypesDataGrid.ItemsSource = null;
             RoomTypesDataGrid.ItemsSource = roomTypes;
             RoomTypesDataGrid.IsSynchronizedWithCurrentItem = true;
+        }
+
+        private bool DoFilter(object roomObject)
+        {
+            var roomType = roomObject as RoomType;
+
+            var roomTypeSearchParam = RoomTypeSearchTextBox.Text;
+
+            if (roomType.Name.Contains(roomTypeSearchParam))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -86,6 +105,11 @@ namespace HotelReservations.Windows
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void RoomTypeSearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            view.Refresh();
         }
 
     }
