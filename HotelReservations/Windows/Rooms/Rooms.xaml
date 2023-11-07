@@ -18,7 +18,12 @@
             <Button Name="DeleteButton" Content="Delete" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteButton_Click"></Button>
         </ToolBar>
 
-        <DataGrid Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Room number:" VerticalContentAlignment="Center"/>
+            <TextBox Name="RoomNumberSearchTextBox" Height="24" Width="150" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="RoomNumberSearchTB_PreviewKeyUp"/>
+        </StackPanel>
+
+        <DataGrid SelectionMode="Single" Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn">
             
         </DataGrid>
     </Grid>

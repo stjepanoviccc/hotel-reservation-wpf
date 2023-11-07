@@ -65,10 +65,7 @@ namespace HotelReservations.Repository
                     while ((line = streamReader.ReadLine()) != null)
                     {
                         var room = FromCSV(line);
-                        if (room.IsActive)
-                        {
-                            rooms.Add(room);
-                        }
+                        rooms.Add(room);
                     }
 
                     return rooms;

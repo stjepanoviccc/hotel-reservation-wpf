@@ -22,19 +22,18 @@ namespace HotelReservations.Windows
     public partial class AddRoomType : Window
     {
         private RoomTypeService roomTypeService;
-        private RoomType newRoomType;
+        private RoomType contextRoomType;
         public AddRoomType()
         {
             InitializeComponent();
+            contextRoomType = new RoomType();
             roomTypeService = new RoomTypeService();
-            newRoomType = new RoomType();
+            this.DataContext = contextRoomType;
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            newRoomType.Id = roomTypeService.GetNextId();
-            newRoomType.Name = RoomTypeTextBox.Text;
-            roomTypeService.SaveRoomType(newRoomType);
+            roomTypeService.SaveRoomType(contextRoomType);
             DialogResult = true;
             Close();
         }

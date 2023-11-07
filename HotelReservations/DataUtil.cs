@@ -23,13 +23,15 @@ namespace HotelReservations
             var singleBedRoom = new RoomType()
             {
                 Id = 1,
-                Name = "Singe Bed"
+                Name = "Singe Bed",
+                IsActive = true
             };
 
             var doubleBedRoom = new RoomType()
             {
                 Id = 2,
-                Name = "Double Bed"
+                Name = "Double Bed",
+                IsActive = true
             };
 
             var room1 = new Room()
@@ -60,6 +62,25 @@ namespace HotelReservations
 
             try
             {
+                IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
+                var loadedRoomTypes = roomTypeRepository.Load();
+
+                if (loadedRoomTypes != null)
+                {
+                    Hotel.GetInstance().RoomTypes = loadedRoomTypes;
+                }
+            }
+            catch (CouldntLoadResourceException)
+            {
+                Console.WriteLine("Call an administrator, something weird is happening with the files");
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Unexpected error", ex.Message);
+            }
+
+            try
+            {
                 IRoomRepository roomRepository = new RoomRepository();
                 var loadedRooms = roomRepository.Load();
 
@@ -76,25 +97,6 @@ namespace HotelReservations
             catch (Exception ex)
             {
                 Console.Write("An unexpected error occured", ex.Message);
-            }
-            
-            try
-            {
-                IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
-                var loadedRoomTypes = roomTypeRepository.Load();
-                
-                if (loadedRoomTypes != null)
-                {
-                    Hotel.GetInstance().RoomTypes = loadedRoomTypes;
-                }
-
-
-            } catch (CouldntLoadResourceException)
-            {
-                Console.WriteLine("Call an administrator, something weird is happening with the files");
-            } catch (Exception ex)
-            {
-                Console.Write("Unexpected error", ex.Message);
             }
         }
 

@@ -2,6 +2,7 @@
 using HotelReservations.Service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,10 @@ namespace HotelReservations.Windows
 {
     /// <summary>
     /// Interaction logic for Rooms.xaml
-    /// </summary>
+    /// </summary>  
     public partial class Rooms : Window
     {
+        private ICollectionView view;
         public Rooms()
         {
             InitializeComponent();
@@ -29,20 +31,37 @@ namespace HotelReservations.Windows
 
         public void FillData()
         {
-            var roomsService = new RoomService();
-            var rooms = roomsService.GetAllRooms();
+            var roomService = new RoomService();
+            var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
+
+            view = CollectionViewSource.GetDefaultView(rooms);
+            view.Filter = DoFilter;
 
             RoomsDataGrid.ItemsSource = null;
-            RoomsDataGrid.ItemsSource = rooms;
+            RoomsDataGrid.ItemsSource = view;
+            RoomsDataGrid.IsSynchronizedWithCurrentItem = true;
         }
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-         
             if (e.PropertyName.ToLower() == "IsActive".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private bool DoFilter(object roomObject)
+        {
+            var room = roomObject as Room;
+
+            var roomNumberSearchParam = RoomNumberSearchTextBox.Text;
+
+            if (room.RoomNumber.Contains(roomNumberSearchParam))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -59,7 +78,7 @@ namespace HotelReservations.Windows
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             var chosenRoom = (Room)RoomsDataGrid.SelectedItem;
-            if(chosenRoom == null)
+            if (chosenRoom == null)
             {
                 return;
             }
@@ -86,6 +105,11 @@ namespace HotelReservations.Windows
                 FillData();
             }
             Show();
+        }
+
+        private void RoomNumberSearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            view.Refresh();
         }
     }
 }

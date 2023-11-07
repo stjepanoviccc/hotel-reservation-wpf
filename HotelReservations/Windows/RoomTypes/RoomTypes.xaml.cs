@@ -1,4 +1,5 @@
-﻿using HotelReservations.Service;
+﻿using HotelReservations.Model;
+using HotelReservations.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,11 @@ namespace HotelReservations.Windows
         public void FillData()
         {
             var roomTypeService = new RoomTypeService();
-            var roomTypes = roomTypeService.GetAllRoomTypes();
+            var roomTypes = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
 
             RoomTypesDataGrid.ItemsSource = null;
             RoomTypesDataGrid.ItemsSource = roomTypes;
+            RoomTypesDataGrid.IsSynchronizedWithCurrentItem = true;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -44,6 +46,46 @@ namespace HotelReservations.Windows
                 FillData();
             }
             Show();
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            var editRoomType = (RoomType)RoomTypesDataGrid.SelectedItem;
+            if (editRoomType == null)
+            {
+                return;
+            }
+            var editRoomWindow = new EditRoomType(editRoomType);
+            Hide();
+            if (editRoomWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+            Show();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var deleteRoomType = (RoomType)RoomTypesDataGrid.SelectedItem;
+            if (deleteRoomType == null)
+            {
+                return;
+            }
+            var deleteRoomWindow = new DeleteRoomType(deleteRoomType);
+            Hide();
+            if (deleteRoomWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+            Show();
+        }
+
+        private void RoomTypesDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName.ToLower() == "IsActive".ToLower())
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
         }
 
     }

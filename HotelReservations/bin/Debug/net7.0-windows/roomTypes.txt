@@ -1,4 +1,7 @@
-1,Singe Bed
-2,Double Bed
-3,Three bed
-4,Four bed
+1,Single Bed,True
+2,Double Bed,True
+3,Three Bed,False
+4,Four Bed,True
+5,Five Bed,True
+6,Six Bed,True
+7,Seven Bed,False

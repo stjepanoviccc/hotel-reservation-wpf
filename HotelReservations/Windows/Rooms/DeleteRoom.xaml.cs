@@ -30,7 +30,7 @@ namespace HotelReservations.Windows
             roomToDelete = room;
         }
 
-        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
             roomService.MakeRoomInactive(roomToDelete);
             DialogResult = true;

@@ -1,5 +1,6 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Repository;
+using HotelReservations.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,12 @@ namespace HotelReservations.Service
 
         public List<Room> GetAllRooms()
         {
-            return Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList(); ;
+            return Hotel.GetInstance().Rooms;
         }
 
         public List<Room> GetSortedRooms()
         {
-            var rooms = Hotel.GetInstance().Rooms;
+            var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
             rooms.Sort((r1, r2) => r1.RoomNumber.CompareTo(r2.RoomNumber));
             return rooms;
         }
@@ -35,22 +36,22 @@ namespace HotelReservations.Service
             return filteredRooms;
         }
 
-        public void SaveRoom(Room newRoom)
+        // add
+        public void SaveRoom(Room room)
         {
-            Hotel.GetInstance().Rooms.Add(newRoom);
+            if (room.Id == 0)
+            {
+                room.Id = GetNextId();
+                Hotel.GetInstance().Rooms.Add(room);
+            }
+            else
+            {
+                var index = Hotel.GetInstance().Rooms.FindIndex(r => r.Id == room.Id);
+                Hotel.GetInstance().Rooms[index] = room;
+            }
         }
 
-        public void OverwriteRoom(Room newRoomData)
-        {
-            var existingRoom = Hotel.GetInstance().Rooms.Find(room => room.Id == newRoomData.Id);
-            existingRoom.RoomNumber = newRoomData.RoomNumber;
-            existingRoom.HasTV = newRoomData.HasTV;
-            existingRoom.HasMiniBar = newRoomData.HasMiniBar;
-            existingRoom.IsActive = newRoomData.IsActive;
-            existingRoom.RoomType = newRoomData.RoomType;
-        }
-
-        // make room inactive (logical delete);
+        // delete;
         public void MakeRoomInactive(Room room)
         {
             var makeRoomInactive = Hotel.GetInstance().Rooms.Find(r => r.Id == room.Id);

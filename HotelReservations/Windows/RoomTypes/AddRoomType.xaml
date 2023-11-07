@@ -25,7 +25,7 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" >
             <StackPanel Orientation="Horizontal">
                 <Label Height="30" Width="150" Content="New Room Type: "/>
-                <TextBox BorderBrush="Black" Name="RoomTypeTextBox" Height="30" Width="150" VerticalContentAlignment="Center"/>
+                <TextBox BorderBrush="Black" Name="RoomTypeTextBox" Height="30" Width="150" VerticalContentAlignment="Center" Text="{Binding Path=Name}"/>
             </StackPanel>
         </StackPanel>
 
