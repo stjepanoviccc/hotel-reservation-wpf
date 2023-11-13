@@ -11,7 +11,21 @@ namespace HotelReservations.Model
     public class RoomType
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+
+        private string name = string.Empty;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("It's required");
+                }
+
+                name = value;
+            }
+        }
         public bool IsActive { get; set; } = true;
 
         public override string ToString()

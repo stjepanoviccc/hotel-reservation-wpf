@@ -2,9 +2,7 @@ C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms\AddEditRoom.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms\DeleteRoom.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms\Rooms.g.cs
-C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\AddRoomType.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\DeleteRoomType.g.cs
-C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\EditRoomType.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\RoomTypes.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\HotelReservations_MarkupCompile.cache
@@ -18,9 +16,7 @@ C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms\AddEditRoom.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms\DeleteRoom.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Rooms\Rooms.baml
-C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\AddRoomType.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\DeleteRoomType.baml
-C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\EditRoomType.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\RoomTypes.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.g.resources
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.GeneratedMSBuildEditorConfig.editorconfig
@@ -32,3 +28,5 @@ C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.pdb
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.genruntimeconfig.cache
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\ref\HotelReservations.dll
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\AddEditRoomType.g.cs
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\RoomTypes\AddEditRoomType.baml

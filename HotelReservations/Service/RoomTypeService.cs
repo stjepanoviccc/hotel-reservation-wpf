@@ -29,14 +29,18 @@ namespace HotelReservations.Service
 
         public void SaveRoomType(RoomType roomType)
         {
-            roomType.Id = GetNextId();
-            Hotel.GetInstance().RoomTypes.Add(roomType);
-        }
-
-        public void EditRoomType(RoomType roomType)
-        {
-            var index = Hotel.GetInstance().RoomTypes.FindIndex(r => r.Id == roomType.Id);
-            Hotel.GetInstance().RoomTypes[index] = roomType;
+            if (roomType.Id == 0)
+            {
+                roomType.Id = GetNextId();
+                Hotel.GetInstance().RoomTypes.Add(roomType);
+            }
+            else
+            {
+                var index = Hotel.GetInstance().RoomTypes.FindIndex(r => r.Id == roomType.Id);
+                Hotel.GetInstance().RoomTypes[index] = roomType;
+                DataUtil.PersistData();
+                DataUtil.LoadData();
+            }
         }
 
         public int GetNextId()

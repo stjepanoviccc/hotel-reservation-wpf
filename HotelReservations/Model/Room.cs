@@ -10,11 +10,28 @@ namespace HotelReservations.Model
     public class Room
     {
         public int Id { get; set; }
-        public string RoomNumber { get; set; } = string.Empty;
+
+        private string roomNumber = string.Empty;
+        public string RoomNumber
+        {
+            get { return roomNumber; }
+            set
+            {
+                //if (value == null || value == "")
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("It's required");
+                }
+
+                roomNumber = value;
+            }
+        }
         public bool HasTV { get; set; }
         public bool HasMiniBar { get; set; }
         public RoomType? RoomType { get; set; } = null;
         public bool IsActive { get; set; } = true;
+
+        public bool IsReserved { get; set; } = false;
 
         public override string ToString()
         {
@@ -31,6 +48,7 @@ namespace HotelReservations.Model
             clone.HasMiniBar = HasMiniBar;
             clone.RoomType = RoomType;
             clone.IsActive = IsActive;
+            clone.IsReserved = IsReserved;
 
             return clone;
         }

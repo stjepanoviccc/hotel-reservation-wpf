@@ -1,7 +1,4 @@
 1,Single Bed,True
 2,Double Bed,True
-3,Three Bed,False
+3,Three Bed,True
 4,Four Bed,True
-5,Five Bed,True
-6,Six Bed,True
-7,Seven Bed,False

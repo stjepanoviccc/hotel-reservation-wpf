@@ -40,6 +40,7 @@ namespace HotelReservations.Windows
             RoomsDataGrid.ItemsSource = null;
             RoomsDataGrid.ItemsSource = view;
             RoomsDataGrid.IsSynchronizedWithCurrentItem = true;
+            RoomsDataGrid.SelectedItem = null;
         }
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -80,6 +81,7 @@ namespace HotelReservations.Windows
             var chosenRoom = (Room)RoomsDataGrid.SelectedItem;
             if (chosenRoom == null)
             {
+                MessageBox.Show("Please select a Room.", "Select Room", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             var editRoomWindow = new AddEditRoom(chosenRoom);
@@ -96,6 +98,7 @@ namespace HotelReservations.Windows
             var chosenRoom = (Room)RoomsDataGrid.SelectedItem;
             if (chosenRoom == null)
             {
+                MessageBox.Show("Please select a Room.", "Select Room", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             var deleteRoomWindow = new DeleteRoom(chosenRoom);

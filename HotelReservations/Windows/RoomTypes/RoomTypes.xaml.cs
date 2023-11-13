@@ -40,6 +40,7 @@ namespace HotelReservations.Windows
             RoomTypesDataGrid.ItemsSource = null;
             RoomTypesDataGrid.ItemsSource = roomTypes;
             RoomTypesDataGrid.IsSynchronizedWithCurrentItem = true;
+            RoomTypesDataGrid.SelectedItem = null;
         }
 
         private bool DoFilter(object roomObject)
@@ -58,7 +59,7 @@ namespace HotelReservations.Windows
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var addRoomTypeWindow = new AddRoomType();
+            var addRoomTypeWindow = new AddEditRoomType();
             Hide();
             if (addRoomTypeWindow.ShowDialog() == true)
             {
@@ -72,9 +73,10 @@ namespace HotelReservations.Windows
             var editRoomType = (RoomType)RoomTypesDataGrid.SelectedItem;
             if (editRoomType == null)
             {
+                MessageBox.Show("Please select an RoomType.", "Select RoomType", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            var editRoomWindow = new EditRoomType(editRoomType);
+            var editRoomWindow = new AddEditRoomType(editRoomType);
             Hide();
             if (editRoomWindow.ShowDialog() == true)
             {
@@ -88,6 +90,7 @@ namespace HotelReservations.Windows
             var deleteRoomType = (RoomType)RoomTypesDataGrid.SelectedItem;
             if (deleteRoomType == null)
             {
+                MessageBox.Show("Please select an RoomType.", "Select RoomType", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             var deleteRoomWindow = new DeleteRoomType(deleteRoomType);

@@ -24,8 +24,19 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" >
             <StackPanel Orientation="Horizontal">
-                <Label Height="30" Width="150" Content="Room Number: "/>
-                <TextBox BorderBrush="Black" Name="RoomNumberTextBox" Height="30" Width="150" VerticalContentAlignment="Center" Text="{Binding Path=RoomNumber}"/>
+                <Label Height="30" Width="150" Content="Room Number: " Margin="0,0,0,15"/>
+                <TextBox BorderBrush="Black" Name="RoomNumberTextBox" Height="30" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15"
+                         Text="{Binding Path=RoomNumber, ValidatesOnExceptions=True, UpdateSourceTrigger=LostFocus}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <Label Content="*" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Height="30" Width="150" Content="Has minibar? "/>

@@ -58,6 +58,23 @@ namespace HotelReservations.Windows
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (contextRoom.RoomNumber == "")
+            {
+                MessageBox.Show("RoomNumber can't be empty string.", "RoomNumber Empty", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            bool roomExists = roomService.GetAllRooms().Any(room => room.RoomNumber == contextRoom.RoomNumber);
+            if (roomExists == true)
+            {
+                MessageBox.Show("RoomNumber already exists.", "RoomNumber Exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if(contextRoom.RoomType == null)
+            {
+                MessageBox.Show("Please select RoomType.", "RoomType Not Selected", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            // validation passed
             roomService.SaveRoom(contextRoom);
             DialogResult = true;
             Close();

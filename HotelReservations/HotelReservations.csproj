@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Windows\Users\" />
+    <Folder Include="Windows\Reservations\" />
+    <Folder Include="Windows\Prices\" />
+  </ItemGroup>
+
 </Project>
