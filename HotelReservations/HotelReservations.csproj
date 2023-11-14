@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Windows\Users\" />
+    <Folder Include="bin\Debug\net7.0-windows\" />
     <Folder Include="Windows\Reservations\" />
     <Folder Include="Windows\Prices\" />
   </ItemGroup>

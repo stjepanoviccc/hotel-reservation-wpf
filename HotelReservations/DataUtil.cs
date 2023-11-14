@@ -54,6 +54,53 @@ namespace HotelReservations
                 IsActive = true
             };
 
+            Receptionist receptionist1 = new Receptionist()
+            {
+                Id = 1,
+                JMBG = "1212121212121",
+                Name = "Petar",
+                Surname = "Perić",
+                Username = "pera",
+                Password = "password",
+                IsActive = true
+            };
+            Receptionist receptionist2 = new Receptionist()
+            {
+                Id = 2,
+                JMBG = "2323232323232",
+                Name = "Marko",
+                Surname = "Marković",
+                Username = "marko",
+                Password = "password",
+                IsActive = true
+            };
+            Administrator administrator1 = new Administrator()
+            {
+                Id = 3,
+                JMBG = "3434343434343",
+                Name = "Marija",
+                Surname = "Marić",
+                Username = "marija",
+                Password = "password",
+                IsActive = true
+            };
+            User user1 = new User()
+            {
+                Id = 4,
+                JMBG = "2211000181755",
+                Name = "Andrej",
+                Surname = "Stjepanovic",
+                Username = "andrej",
+                Password = "password",
+                IsActive = true
+            };
+
+
+            hotel.Users.Add(administrator1);
+            hotel.Users.Add(receptionist1);
+            hotel.Users.Add(receptionist2);
+            hotel.Users.Add(user1);
+
             hotel.RoomTypes.Add(singleBedRoom);
             hotel.RoomTypes.Add(doubleBedRoom);
 
@@ -63,11 +110,18 @@ namespace HotelReservations
             try
             {
                 IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
-                var loadedRoomTypes = roomTypeRepository.Load();
+                IUserRepository usersRepository = new UserRepository();
+                IRoomRepository roomRepository = new RoomRepository();
 
-                if (loadedRoomTypes != null)
+                var loadedRoomTypes = roomTypeRepository.Load();                
+                var loadedUsers = usersRepository.Load();                
+                var loadedRooms = roomRepository.Load();
+
+                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null)
                 {
                     Hotel.GetInstance().RoomTypes = loadedRoomTypes;
+                    Hotel.GetInstance().Users = loadedUsers;
+                    Hotel.GetInstance().Rooms = loadedRooms;
                 }
             }
             catch (CouldntLoadResourceException)
@@ -78,45 +132,22 @@ namespace HotelReservations
             {
                 Console.Write("Unexpected error", ex.Message);
             }
-
-            try
-            {
-                IRoomRepository roomRepository = new RoomRepository();
-                var loadedRooms = roomRepository.Load();
-
-                if (loadedRooms != null)
-                {
-                    Hotel.GetInstance().Rooms = loadedRooms;
-                }
-
-            }
-            catch (CouldntLoadResourceException)
-            {
-                Console.WriteLine("Call an administrator, something weird is happening with the files");
-            }
-            catch (Exception ex)
-            {
-                Console.Write("An unexpected error occured", ex.Message);
-            }
         }
 
         public static void PersistData()
         {
             try
             {
+                IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
+                IUserRepository usersRepository = new UserRepository();
                 IRoomRepository roomRepository = new RoomRepository();
-                roomRepository.Save(Hotel.GetInstance().Rooms);
+
+                usersRepository.Save(Hotel.GetInstance().Users);
+                roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
+                roomRepository.Save(Hotel.GetInstance().Rooms);                
+                
             }
             catch (CouldntPersistDataException)
-            {
-                Console.WriteLine("Call an administrator, something weird is happening with the files");
-            }
-
-            try
-            {
-                IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
-                roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
-            } catch (CouldntPersistDataException)
             {
                 Console.WriteLine("Call an administrator, something weird is happening with the files");
             }

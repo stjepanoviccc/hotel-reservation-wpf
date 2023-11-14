@@ -1,0 +1,5 @@
+3,marija,Marija,Marić,password,3434343434343,True
+1,pera,Petar,Perić,password,1212121212121,True
+2,marko,Marko,Marković,password,2323232323232,True
+4,andrej,Andrej,Stjepanovic,password,2211000181755,True
+5,mitar,Mitar,Dodik,mitar123,4444444444444,True

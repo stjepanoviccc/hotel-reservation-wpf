@@ -23,15 +23,18 @@ namespace HotelReservations.Windows
     {
         private RoomTypeService roomTypeService;
         private RoomType contextRoomType;
+        private bool isEditing;
         public AddEditRoomType(RoomType? roomType = null)
         {
             if (roomType == null)
             {
                 contextRoomType = new RoomType();
+                isEditing = false;
             }
             else
             {
                 contextRoomType = roomType.Clone();
+                isEditing = true;
             }
             InitializeComponent();
             roomTypeService = new RoomTypeService();
@@ -57,12 +60,16 @@ namespace HotelReservations.Windows
                 MessageBox.Show("RoomType Name can't be empty string.", "RoomType Name Empty", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            bool roomTypeExists = roomTypeService.GetAllRoomTypes().Any(roomType => roomType.Name == contextRoomType.Name);
-            if (roomTypeExists == true)
+            if(isEditing == false)
             {
-                MessageBox.Show("RoomType Name already exists.", "RoomType Name Exists", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                bool roomTypeExists = roomTypeService.GetAllRoomTypes().Any(roomType => roomType.Name == contextRoomType.Name);
+                if (roomTypeExists == true)
+                {
+                    MessageBox.Show("RoomType Name already exists.", "RoomType Name Exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
             }
+ 
             // validation passed
             roomTypeService.SaveRoomType(contextRoomType);
             DialogResult = true;
