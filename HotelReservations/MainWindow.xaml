@@ -19,6 +19,7 @@
                 <MenuItem Name="RoomTypeMenuItem" Header="RoomTypes" Click="RoomTypeMenuItem_Click" />
                 <MenuItem Name="UsersMenuItem" Header="Users" Click="UsersMenuItem_Click" />
                 <MenuItem Name="PricesMenuItem" Header="Prices" Click="PricesMenuItem_Click" />
+                <MenuItem Name="ReservationsMenuItem" Header="Reservations" Click="ReservationsMenuItem_Click" />
             </MenuItem>
         </Menu>
     </Grid>

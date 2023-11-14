@@ -50,5 +50,11 @@ namespace HotelReservations
             var pricesWindow = new Prices();
             pricesWindow.Show();
         }
+
+        private void ReservationsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var reservationsWindow = new Reservations();
+            reservationsWindow.Show();
+        }
     }
 }
