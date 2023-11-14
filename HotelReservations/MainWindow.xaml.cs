@@ -44,5 +44,11 @@ namespace HotelReservations
             var usersWindow = new Users();
             usersWindow.Show();
         }
+
+        private void PricesMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var pricesWindow = new Prices();
+            pricesWindow.Show();
+        }
     }
 }

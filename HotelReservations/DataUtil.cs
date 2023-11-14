@@ -95,14 +95,40 @@ namespace HotelReservations
                 IsActive = true
             };
 
+            var resTypeDay = ReservationType.Day;
+            var resTypeNight = ReservationType.Night;
+
+            Price price1 = new Price()
+            {
+                Id = 1,
+                RoomType = singleBedRoom,
+                ReservationType = resTypeDay,
+                PriceValue = 2000,
+                IsActive = true
+            };
+
+            Price price2 = new Price()
+            {
+                Id = 2,
+                RoomType = singleBedRoom,
+                ReservationType = resTypeNight,
+                PriceValue = 3000,
+                IsActive = true
+            };
+
+            hotel.ReservationTypes.Add(resTypeDay);
+            hotel.ReservationTypes.Add(resTypeNight);
+
+            hotel.RoomTypes.Add(singleBedRoom);
+            hotel.RoomTypes.Add(doubleBedRoom);
+
+            hotel.Prices.Add(price1);
+            hotel.Prices.Add(price2);
 
             hotel.Users.Add(administrator1);
             hotel.Users.Add(receptionist1);
             hotel.Users.Add(receptionist2);
             hotel.Users.Add(user1);
-
-            hotel.RoomTypes.Add(singleBedRoom);
-            hotel.RoomTypes.Add(doubleBedRoom);
 
             hotel.Rooms.Add(room1);
             hotel.Rooms.Add(room2);

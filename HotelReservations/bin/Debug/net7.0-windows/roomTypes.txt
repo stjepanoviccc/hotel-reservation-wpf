@@ -1,2 +1,3 @@
 1,Singe Bed,True
 2,Double Bed,True
+3,Three Bed,True

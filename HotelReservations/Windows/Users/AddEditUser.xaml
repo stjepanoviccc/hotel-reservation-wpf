@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AddEditUser" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
+    <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="300"/>
         <ColumnDefinition Width="*"/>

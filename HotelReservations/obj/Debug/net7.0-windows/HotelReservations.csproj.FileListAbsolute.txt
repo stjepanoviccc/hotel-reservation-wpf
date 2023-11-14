@@ -36,3 +36,9 @@ C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Users\AddEditUser.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Users\DeleteUser.baml
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Users\Users.baml
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\AddEditPrices.g.cs
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\DeletePrices.g.cs
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\Prices.g.cs
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\AddEditPrices.baml
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\DeletePrices.baml
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Prices\Prices.baml
