@@ -10,6 +10,10 @@ namespace HotelReservations.Service
     class PriceService
     {
 
+        public List<Price> GetAllPrices()
+        {
+            return Hotel.GetInstance().Prices;
+        }
         public void SavePrice(Price price)
         {
             if (price.Id == 0)

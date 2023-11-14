@@ -63,6 +63,7 @@ namespace HotelReservations.Windows
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            // basic validation
             if (contextUser.Username == "")
             {
                 MessageBox.Show("Username can't be empty string.", "Username Empty", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -94,16 +95,16 @@ namespace HotelReservations.Windows
                 return;
             }
 
-            // if editing i need to avoid these validations
+            // if editing i need to avoid these validations because it will overwrite
             if(isEditing == false)
             {
-                bool jmbgExists = userService.GetAllUsers().Any(user => user.JMBG == contextUser.JMBG);
+                bool jmbgExists = userService.GetAllUsers().Where(user=> user.IsActive == true).Any(user => user.JMBG == contextUser.JMBG);
                 if (jmbgExists == true)
                 {
                     MessageBox.Show("JMBG already exists.", "JMBG Exists", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
-                bool usernameExists = userService.GetAllUsers().Any(user => user.Username == contextUser.Username);
+                bool usernameExists = userService.GetAllUsers().Where(user => user.IsActive == true).Any(user => user.Username == contextUser.Username);
                 if (usernameExists == true)
                 {
                     MessageBox.Show("Username already exists.", "Username Exists", MessageBoxButton.OK, MessageBoxImage.Information);

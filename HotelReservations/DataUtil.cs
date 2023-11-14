@@ -138,16 +138,19 @@ namespace HotelReservations
                 IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
                 IUserRepository usersRepository = new UserRepository();
                 IRoomRepository roomRepository = new RoomRepository();
+                IPriceRepository priceRepository = new PriceRepository();
 
                 var loadedRoomTypes = roomTypeRepository.Load();                
-                var loadedUsers = usersRepository.Load();                
+                var loadedUsers = usersRepository.Load();
                 var loadedRooms = roomRepository.Load();
+                var loadedPriceRepository = priceRepository.Load();
 
-                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null)
+                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null && loadedPriceRepository != null)
                 {
                     Hotel.GetInstance().RoomTypes = loadedRoomTypes;
                     Hotel.GetInstance().Users = loadedUsers;
                     Hotel.GetInstance().Rooms = loadedRooms;
+                    Hotel.GetInstance().Prices = loadedPriceRepository;
                 }
             }
             catch (CouldntLoadResourceException)
@@ -167,11 +170,12 @@ namespace HotelReservations
                 IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
                 IUserRepository usersRepository = new UserRepository();
                 IRoomRepository roomRepository = new RoomRepository();
+                IPriceRepository priceRepository = new PriceRepository();
 
                 usersRepository.Save(Hotel.GetInstance().Users);
                 roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
-                roomRepository.Save(Hotel.GetInstance().Rooms);                
-                
+                roomRepository.Save(Hotel.GetInstance().Rooms);
+                priceRepository.Save(Hotel.GetInstance().Prices);
             }
             catch (CouldntPersistDataException)
             {
