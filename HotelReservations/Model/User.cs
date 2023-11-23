@@ -80,9 +80,9 @@ namespace HotelReservations.Model
             }
         }
 
-        public bool IsActive { get; set; } = true;
+        public UserType UserType { get; set; }
 
-        public string UserType { get { return GetType().Name; } }
+        public bool IsActive { get; set; } = true;
 
         public User Clone()
         {
@@ -93,6 +93,7 @@ namespace HotelReservations.Model
             clone.Surname = Surname;
             clone.JMBG = JMBG;
             clone.Password = Password;
+            clone.UserType = UserType;
             return clone;
         }
     }

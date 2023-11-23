@@ -44,20 +44,19 @@ namespace HotelReservations.Windows
 
         private void AdjustWindow(User? user = null)
         {
-            var usersList = Hotel.GetInstance().Users.ToList();
-            List<string> userTypeList = usersList.Select(user => user.GetType().Name).Distinct().ToList();
-            UserTypeCB.ItemsSource = userTypeList;
+            var userTypesList = Hotel.GetInstance().UserTypes.ToList();
+            UserTypeCB.ItemsSource = userTypesList;
 
             if (user != null)
             {
                 Title = "Edit user";
-                UserTypeCB.SelectedItem = user.GetType().Name;
+                UserTypeCB.SelectedItem = user.UserType;
                 UserTypeCB.IsEnabled = false;
             }
             else
             {
+                UserTypeCB.SelectedIndex = 0;
                 Title = "Add user";
-                UserTypeCB.SelectedValue = "User";
             }
         }
 
@@ -89,7 +88,7 @@ namespace HotelReservations.Windows
                 MessageBox.Show("Wrong format for JMBG", "JMBG Format", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (contextUser.UserType == "")
+            if (contextUser.UserType == null)
             {
                 MessageBox.Show("Please select UserType.", "UserType Not Selected", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;

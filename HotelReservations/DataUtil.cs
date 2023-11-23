@@ -54,49 +54,11 @@ namespace HotelReservations
                 IsActive = true
             };
 
-            Receptionist receptionist1 = new Receptionist()
-            {
-                Id = 1,
-                JMBG = "1212121212121",
-                Name = "Petar",
-                Surname = "Perić",
-                Username = "pera",
-                Password = "password",
-                IsActive = true
-            };
-            Receptionist receptionist2 = new Receptionist()
-            {
-                Id = 2,
-                JMBG = "2323232323232",
-                Name = "Marko",
-                Surname = "Marković",
-                Username = "marko",
-                Password = "password",
-                IsActive = true
-            };
-            Administrator administrator1 = new Administrator()
-            {
-                Id = 3,
-                JMBG = "3434343434343",
-                Name = "Marija",
-                Surname = "Marić",
-                Username = "marija",
-                Password = "password",
-                IsActive = true
-            };
-            User user1 = new User()
-            {
-                Id = 4,
-                JMBG = "2211000181755",
-                Name = "Andrej",
-                Surname = "Stjepanovic",
-                Username = "andrej",
-                Password = "password",
-                IsActive = true
-            };
-
             var resTypeDay = ReservationType.Day;
             var resTypeNight = ReservationType.Night;
+
+            var userTypeAdministrator = UserType.Administrator;
+            var userTypeReceptionist = UserType.Receptionist;
 
             Price price1 = new Price()
             {
@@ -116,6 +78,9 @@ namespace HotelReservations
                 IsActive = true
             };
 
+            hotel.UserTypes.Add(userTypeAdministrator);
+            hotel.UserTypes.Add(userTypeReceptionist);
+
             hotel.ReservationTypes.Add(resTypeDay);
             hotel.ReservationTypes.Add(resTypeNight);
 
@@ -124,11 +89,6 @@ namespace HotelReservations
 
             hotel.Prices.Add(price1);
             hotel.Prices.Add(price2);
-
-            hotel.Users.Add(administrator1);
-            hotel.Users.Add(receptionist1);
-            hotel.Users.Add(receptionist2);
-            hotel.Users.Add(user1);
 
             hotel.Rooms.Add(room1);
             hotel.Rooms.Add(room2);

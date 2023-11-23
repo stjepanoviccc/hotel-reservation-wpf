@@ -19,6 +19,7 @@
         </StackPanel>
 
         <ToolBar Grid.Row="1">
+            <Button Name="CreateReservationButton" Content="Create Reservation" Background="Lightgray" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="CreateReservation_Click"></Button>
             <Button Name="AddButton" Content="Add" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="AddButton_Click"></Button>
             <Button Name="EditButton" Content="Edit" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="EditButton_Click"></Button>
             <Button Name="DeleteButton" Content="Delete" BorderBrush="Black" Padding="5,0,5,0" Margin="5,0,0,0" Click="DeleteButton_Click"></Button>

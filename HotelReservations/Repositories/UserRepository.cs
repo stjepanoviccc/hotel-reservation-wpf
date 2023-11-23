@@ -12,8 +12,8 @@ namespace HotelReservations.Repositories
     public class UserRepository : IUserRepository
     {
         public string ToCSV(User user)
-        {
-            return $"{user.Id},{user.Username},{user.Name},{user.Surname},{user.Password},{user.JMBG},{user.IsActive}";
+        { 
+            return $"{user.Id},{user.Username},{user.Name},{user.Surname},{user.Password},{user.JMBG},{user.UserType},{user.IsActive}";
         }
         private User FromCSV(string csv)
         {
@@ -25,7 +25,9 @@ namespace HotelReservations.Repositories
             user.Surname = csvValues[3];
             user.Password = csvValues[4];
             user.JMBG = csvValues[5];
-            user.IsActive = bool.Parse(csvValues[6]);
+            var userType = csvValues[6];
+            user.UserType = Hotel.GetInstance().UserTypes.Find(res => res.ToString() == userType);
+            user.IsActive = bool.Parse(csvValues[7]);
             return user;
         }
         public List<User> Load()

@@ -7,7 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Windows\Reservations\AddEditReservations.xaml.cs">
+    <Compile Update="Windows\Reservations\AddReservations.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Reservations\EditReservations.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Reservations\DeleteReservations.xaml.cs">
@@ -51,7 +54,10 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Windows\Reservations\AddEditReservations.xaml">
+    <Page Update="Windows\Reservations\AddReservations.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\Reservations\EditReservations.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\Reservations\DeleteReservations.xaml">
