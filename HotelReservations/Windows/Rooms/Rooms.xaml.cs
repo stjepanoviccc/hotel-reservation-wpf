@@ -65,23 +65,6 @@ namespace HotelReservations.Windows
             return false;
         }
 
-        private void CreateReservation_Click(object sender, RoutedEventArgs e)
-        {
-            var chosenRoom = (Room)RoomsDataGrid.SelectedItem;
-            if (chosenRoom == null)
-            {
-                MessageBox.Show("Please select a Room.", "Select Room", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            var createReservationWindow = new AddReservations(chosenRoom);
-            Hide();
-            if (createReservationWindow.ShowDialog() == true)
-            {
-                FillData();
-            }
-            Show();
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var addRoomWindow = new AddEditRoom();

@@ -12,8 +12,10 @@ namespace HotelReservations.Windows
     public partial class AddEditPrices : Window
     {
         private PriceService priceService;
+        private RoomTypeService roomTypeService;
         private Price contextPrice;
         private bool isEditing;
+
         public AddEditPrices(Price? price = null)
         {
             if (price == null)
@@ -28,6 +30,7 @@ namespace HotelReservations.Windows
             }
             InitializeComponent();
             priceService = new PriceService();
+            roomTypeService = new RoomTypeService();
             AdjustWindow(price);
             this.DataContext = contextPrice;
         }
@@ -42,7 +45,7 @@ namespace HotelReservations.Windows
             if (price != null)
             {
                 Title = "Edit price";
-            //  RoomTypeCB.SelectedItem = price.RoomType;
+                RoomTypeCB.SelectedValue = roomTypeService.GetRoomTypeByName(price.RoomType.Name);
                 RoomTypeCB.IsEnabled = false;
                 ReservationTypeCB.IsEnabled = false;
             }

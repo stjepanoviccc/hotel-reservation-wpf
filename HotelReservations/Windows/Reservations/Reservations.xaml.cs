@@ -57,7 +57,17 @@ namespace HotelReservations.Windows
             return false;
         }
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private void AddReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addReservationWindow = new AddEditReservations();
+      //      Hide();
+            if (addReservationWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+     //       Show();
+        }
+        private void EditReservationButton_Click(object sender, RoutedEventArgs e)
         {
             Reservation chosenReservation = (Reservation)ReservationsDataGrid.SelectedItem;
             if (chosenReservation == null)
@@ -65,16 +75,16 @@ namespace HotelReservations.Windows
                 MessageBox.Show("Please select a Reservation.", "Select Reservation", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            var editReservationWindow = new EditReservations(chosenReservation);
-            Hide();
+            var editReservationWindow = new AddEditReservations(chosenReservation);
+      //      Hide();
             if (editReservationWindow.ShowDialog() == true)
             {
                 FillData();
             }
-            Show();
+      //      Show();
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteReservationButton_Click(object sender, RoutedEventArgs e)
         {
             var chosenReservation = (Reservation)ReservationsDataGrid.SelectedItem;
             if (chosenReservation == null)

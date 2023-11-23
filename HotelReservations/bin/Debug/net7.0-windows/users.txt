@@ -1,4 +1,0 @@
-3,marija,Marija,Marić,password,3434343434343,Administrator,True
-1,pera,Petar,Perić,password,1212121212121,Administrator,True
-2,marko,Marko,Marković,password,2323232323232,Administrator,True
-4,andrej,Andrej,Stjepanovic,password,2211000181755,Receptionist,True

@@ -3,6 +3,7 @@ using HotelReservations.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,7 +81,7 @@ namespace HotelReservations.Windows
             if (selectedUser == null)
             {
                 MessageBox.Show("Please select a User.", "Select User", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;    
+                return;
             }
             var deleteUsersWindow = new DeleteUser(selectedUser);
             Hide();

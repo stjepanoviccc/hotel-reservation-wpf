@@ -30,6 +30,7 @@ namespace HotelReservations.Model
         public List<Price> Prices { get; set; } = new List<Price>();
         public List<ReservationType> ReservationTypes { get; set; } = new List<ReservationType>();
         public List<UserType> UserTypes { get; set; } = new List<UserType>();
+        public List<Guest> Guests { get; set; } = new List<Guest>();
 
         private Hotel() 
         { 

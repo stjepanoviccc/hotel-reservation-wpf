@@ -52,7 +52,7 @@ namespace HotelReservations.Windows
             if (room != null)
             {
                 Title = "Edit Room";
-                RoomTypeComboBox.SelectedItem = room.RoomType;
+                RoomTypeComboBox.SelectedValue = roomTypeService.GetRoomTypeByName(room.RoomType.Name);
             }
             else
             {

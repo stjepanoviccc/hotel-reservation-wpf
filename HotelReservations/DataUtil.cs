@@ -23,7 +23,7 @@ namespace HotelReservations
             var singleBedRoom = new RoomType()
             {
                 Id = 1,
-                Name = "Singe Bed",
+                Name = "Single Bed",
                 IsActive = true
             };
 
@@ -78,6 +78,18 @@ namespace HotelReservations
                 IsActive = true
             };
 
+            Guest testGuest = new Guest()
+            {
+                Id = 1,
+                // -1 when making to make sure reservation isnt added yet.
+                ReservationId = -1,
+                Name = "Guest",
+                Surname = "Guest",
+                JMBG = "0000000000001"
+            };
+
+            hotel.Guests.Add(testGuest);
+
             hotel.UserTypes.Add(userTypeAdministrator);
             hotel.UserTypes.Add(userTypeReceptionist);
 
@@ -99,18 +111,21 @@ namespace HotelReservations
                 IUserRepository usersRepository = new UserRepository();
                 IRoomRepository roomRepository = new RoomRepository();
                 IPriceRepository priceRepository = new PriceRepository();
+                IGuestRepository guestRepository = new GuestRepository();
 
                 var loadedRoomTypes = roomTypeRepository.Load();                
                 var loadedUsers = usersRepository.Load();
                 var loadedRooms = roomRepository.Load();
                 var loadedPriceRepository = priceRepository.Load();
+                var loadedGuestsRepository = guestRepository.Load();
 
-                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null && loadedPriceRepository != null)
+                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null && loadedPriceRepository != null && loadedGuestsRepository != null )
                 {
                     Hotel.GetInstance().RoomTypes = loadedRoomTypes;
                     Hotel.GetInstance().Users = loadedUsers;
                     Hotel.GetInstance().Rooms = loadedRooms;
                     Hotel.GetInstance().Prices = loadedPriceRepository;
+                    Hotel.GetInstance().Guests = loadedGuestsRepository;
                 }
             }
             catch (CouldntLoadResourceException)
@@ -131,11 +146,13 @@ namespace HotelReservations
                 IUserRepository usersRepository = new UserRepository();
                 IRoomRepository roomRepository = new RoomRepository();
                 IPriceRepository priceRepository = new PriceRepository();
+                IGuestRepository guestRepository = new GuestRepository();
 
                 usersRepository.Save(Hotel.GetInstance().Users);
                 roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
                 roomRepository.Save(Hotel.GetInstance().Rooms);
                 priceRepository.Save(Hotel.GetInstance().Prices);
+                guestRepository.Save(Hotel.GetInstance().Guests);
             }
             catch (CouldntPersistDataException)
             {

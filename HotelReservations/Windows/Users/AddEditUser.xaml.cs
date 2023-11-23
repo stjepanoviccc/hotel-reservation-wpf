@@ -49,14 +49,14 @@ namespace HotelReservations.Windows
 
             if (user != null)
             {
-                Title = "Edit user";
+                Title = "Edit User";
                 UserTypeCB.SelectedItem = user.UserType;
                 UserTypeCB.IsEnabled = false;
             }
             else
             {
                 UserTypeCB.SelectedIndex = 0;
-                Title = "Add user";
+                Title = "Add User";
             }
         }
 
