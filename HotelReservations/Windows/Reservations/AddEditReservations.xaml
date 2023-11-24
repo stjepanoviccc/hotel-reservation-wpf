@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservations.Windows"
         mc:Ignorable="d"
-        Title="AddEditReservations" Height="1000" Width="1280">
+        Title="AddEditReservations" Height="800" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -13,7 +13,8 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
         <ToolBar Grid.Row="0">
@@ -34,5 +35,22 @@
         <DataGrid SelectionMode="Single" Grid.Row="3" Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn">
 
         </DataGrid>
+
+        <ToolBar Grid.Row="4">
+            <Label Content="Date" Width="90"/>
+        </ToolBar>
+
+        <StackPanel Grid.Row="5" HorizontalAlignment="Left">
+            <Label Content="Start" Width="90"/>
+            <DatePicker Name="StartDatePicker" Margin="5,0,5,0" SelectedDate="{Binding StartDateTime}"/>
+            <Label Content="End" Width="90"/>
+            <DatePicker Name="EndDatePicker" Margin="5,0,5,0"  SelectedDate="{Binding EndDateTime}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" FlowDirection="RightToLeft" >
+            <Button BorderBrush="Black" Name="SaveBtn" Content="Save" Width="80" Height="30" Margin="5,0,5,0" Click="SaveButton_Click"/>
+            <Button BorderBrush="Black" Name="CancelBtn" Content="Cancel" Width="80" Height="30" Click="CancelButton_Click" />
+        </StackPanel>
+
     </Grid>
 </Window>

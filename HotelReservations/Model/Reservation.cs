@@ -12,11 +12,11 @@ namespace HotelReservations.Model
         public int Id { get; set; }
         public string RoomNumber { get; set; }
         public ReservationType ReservationType { get; set; }
-        public List<Guest> Guests { get; set; }
+        public List<Guest> Guests { get; set; } = new List<Guest>();
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public double TotalPrice { get; set; }
-        public bool IsActive { get; set; }
+        public double TotalPrice { get; set; } = 0;
+        public bool IsActive { get; set; } = true;
         public Reservation Clone()
         {
             var clone = new Reservation();

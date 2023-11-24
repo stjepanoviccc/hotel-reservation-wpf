@@ -60,12 +60,12 @@ namespace HotelReservations.Windows
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
         {
             var addReservationWindow = new AddEditReservations();
-      //      Hide();
+            Hide();
             if (addReservationWindow.ShowDialog() == true)
             {
                 FillData();
             }
-     //       Show();
+            Show();
         }
         private void EditReservationButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,12 +76,12 @@ namespace HotelReservations.Windows
                 return;
             }
             var editReservationWindow = new AddEditReservations(chosenReservation);
-      //      Hide();
+            Hide();
             if (editReservationWindow.ShowDialog() == true)
             {
                 FillData();
             }
-      //      Show();
+            Show();
         }
 
         private void DeleteReservationButton_Click(object sender, RoutedEventArgs e)

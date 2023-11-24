@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace HotelReservations
 {
@@ -82,11 +83,27 @@ namespace HotelReservations
             {
                 Id = 1,
                 // -1 when making to make sure reservation isnt added yet.
-                ReservationId = -1,
+                ReservationId = 1,
                 Name = "Guest",
                 Surname = "Guest",
-                JMBG = "0000000000001"
+                JMBG = "0000000000001",
+                IsActive = true
             };
+
+            List<Guest> initialGuests = new List<Guest>();
+            Reservation res = new Reservation()
+            {
+                Id = 1,
+                RoomNumber = "01",
+                ReservationType = ReservationType.Day,
+                Guests = initialGuests,
+                StartDateTime = DateTime.Now,
+                EndDateTime = DateTime.Now,
+                TotalPrice = 20,
+                IsActive = true
+            };
+
+            hotel.Reservations.Add(res);
 
             hotel.Guests.Add(testGuest);
 
@@ -112,20 +129,23 @@ namespace HotelReservations
                 IRoomRepository roomRepository = new RoomRepository();
                 IPriceRepository priceRepository = new PriceRepository();
                 IGuestRepository guestRepository = new GuestRepository();
+                IReservationRepository reservationRepository = new ReservationRepository();
 
                 var loadedRoomTypes = roomTypeRepository.Load();                
                 var loadedUsers = usersRepository.Load();
                 var loadedRooms = roomRepository.Load();
                 var loadedPriceRepository = priceRepository.Load();
                 var loadedGuestsRepository = guestRepository.Load();
+                var loadedReservationRepository = reservationRepository.Load();
 
-                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null && loadedPriceRepository != null && loadedGuestsRepository != null )
+                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null && loadedPriceRepository != null && loadedGuestsRepository != null && loadedReservationRepository != null)
                 {
                     Hotel.GetInstance().RoomTypes = loadedRoomTypes;
                     Hotel.GetInstance().Users = loadedUsers;
                     Hotel.GetInstance().Rooms = loadedRooms;
                     Hotel.GetInstance().Prices = loadedPriceRepository;
                     Hotel.GetInstance().Guests = loadedGuestsRepository;
+                    Hotel.GetInstance().Reservations = loadedReservationRepository;
                 }
             }
             catch (CouldntLoadResourceException)
@@ -147,12 +167,14 @@ namespace HotelReservations
                 IRoomRepository roomRepository = new RoomRepository();
                 IPriceRepository priceRepository = new PriceRepository();
                 IGuestRepository guestRepository = new GuestRepository();
+                IReservationRepository reservationRepository = new ReservationRepository();
 
                 usersRepository.Save(Hotel.GetInstance().Users);
                 roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
                 roomRepository.Save(Hotel.GetInstance().Rooms);
                 priceRepository.Save(Hotel.GetInstance().Prices);
                 guestRepository.Save(Hotel.GetInstance().Guests);
+                reservationRepository.Save(Hotel.GetInstance().Reservations);
             }
             catch (CouldntPersistDataException)
             {

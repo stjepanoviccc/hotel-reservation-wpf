@@ -12,9 +12,11 @@ namespace HotelReservations.Service
     internal class ReservationService
     {
         IReservationRepository reservationRepository;
+        GuestService guestService;
         public ReservationService()
         {
             reservationRepository = new ReservationRepository();
+            guestService = new GuestService();
         }
 
         public List<Reservation> GetAllReservations()
@@ -23,8 +25,19 @@ namespace HotelReservations.Service
         }
 
         // add
-        public void SaveReservation(Reservation reservation)
+        public void SaveReservation(Reservation reservation, Room room)
         {
+            reservation.RoomNumber = room.RoomNumber;
+
+            if (reservation.StartDateTime == reservation.EndDateTime)
+            {
+                reservation.ReservationType = ReservationType.Day;
+            }
+            else
+            {
+                reservation.ReservationType = ReservationType.Night;
+            }
+
             if (reservation.Id == 0)
             {
                 reservation.Id = GetNextId();
@@ -35,6 +48,10 @@ namespace HotelReservations.Service
                 var index = Hotel.GetInstance().Rooms.FindIndex(r => r.Id == reservation.Id);
                 Hotel.GetInstance().Reservations[index] = reservation;
             }
+
+            // this will rewrite guests ID!
+            guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
+            reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
         }
 
         // delete;

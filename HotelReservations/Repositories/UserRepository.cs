@@ -12,9 +12,10 @@ namespace HotelReservations.Repositories
     public class UserRepository : IUserRepository
     {
         public string ToCSV(User user)
-        { 
+        {
             return $"{user.Id},{user.Username},{user.Name},{user.Surname},{user.Password},{user.JMBG},{user.UserType},{user.IsActive}";
         }
+
         private User FromCSV(string csv)
         {
             string[] csvValues = csv.Split(',');
@@ -30,6 +31,7 @@ namespace HotelReservations.Repositories
             user.IsActive = bool.Parse(csvValues[7]);
             return user;
         }
+
         public List<User> Load()
         {
             try

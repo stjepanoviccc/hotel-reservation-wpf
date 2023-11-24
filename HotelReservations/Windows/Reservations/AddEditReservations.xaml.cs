@@ -43,9 +43,8 @@ namespace HotelReservations.Windows
             }
             InitializeComponent();
             reservationService = new ReservationService();
-            this.DataContext = contextReservation;
             AdjustWindow(res);
-            FillData();
+            FillData(res);
             this.DataContext = contextReservation;
         }
 
@@ -61,25 +60,21 @@ namespace HotelReservations.Windows
             }
         }
 
-        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        public void FillData(Reservation? res = null, Guest? newGuest = null)
         {
-            // validation passed
-            reservationService.SaveReservation(contextReservation);
-            DialogResult = true;
-            Close();
-        }
+            var guests = Hotel.GetInstance().Guests.Where(g => g.IsActive && g.ReservationId == 0);
+            if (isEditing)
+            {
+                guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == contextReservation.Id && g.IsActive) ?? Enumerable.Empty<Guest>();
+                var ress = res;
+            }
 
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
+            if (newGuest != null)
+            {
+                guests.Prepend(newGuest);
+            }
 
-        public void FillData()
-        {
             var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
-            // latter guests will be added depending on resList ID!;
-            var guests = Hotel.GetInstance().Guests.Where(guest => guest.IsActive).ToList();
 
             view = CollectionViewSource.GetDefaultView(rooms);
             RoomsDataGrid.ItemsSource = null;
@@ -104,14 +99,6 @@ namespace HotelReservations.Windows
 
         private void GuestsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            /* 
-            if (!isEditing)
-            {
-                if (e.PropertyName.ToLower() == "ReservationId".ToLower())
-                {
-                    e.Column.Visibility = Visibility.Collapsed;
-                }
-            } */
             if (e.PropertyName.ToLower() == "IsActive".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;
@@ -128,6 +115,7 @@ namespace HotelReservations.Windows
             }
             Show();
         }
+
         private void EditGuestButton_Click(object sender, RoutedEventArgs e)
         {
             Guest chosenGuest = (Guest)GuestsDataGrid.SelectedItem;
@@ -160,6 +148,48 @@ namespace HotelReservations.Windows
                 FillData();
             }
             Show();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Room selectedRoom = RoomsDataGrid.SelectedItem as Room;
+            DateTime? startDate = StartDatePicker.SelectedDate;
+            DateTime? endDate = EndDatePicker.SelectedDate;
+
+            if (selectedRoom == null)
+            {
+                MessageBox.Show("Please select a room.");
+                return;
+            }
+
+            if (!startDate.HasValue || !endDate.HasValue)
+            {
+                MessageBox.Show("Please select both start and end dates.");
+                return;
+            }
+
+            // Not in the past
+            if (startDate < DateTime.Today)
+            {
+                MessageBox.Show("Start date cannot be in the past.");
+                return;
+            }
+
+            // Is Start date less than or equal to the end date
+            if (startDate > endDate)
+            {
+                MessageBox.Show("Start date must be equal or earlier than end date.");
+                return;
+            }
+            reservationService.SaveReservation(contextReservation, selectedRoom);
+            DialogResult = true;
+            Close();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
         }
     }
 }

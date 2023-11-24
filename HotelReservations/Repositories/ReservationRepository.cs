@@ -13,7 +13,9 @@ namespace HotelReservations.Repositories
     {
         private string ToCSV(Reservation res)
         {
-            return $"{res.Id}";
+            string startDateTimeStr = res.StartDateTime.ToString("yyyy-MM-dd");
+            string endDateTimeStr =  res.EndDateTime.ToString("yyyy-MM-dd");
+            return $"{res.Id},{res.RoomNumber},{res.ReservationType},{startDateTimeStr},{endDateTimeStr},{res.TotalPrice},{res.IsActive}";
         }
 
         private Reservation FromCSV(string csv)
@@ -21,6 +23,14 @@ namespace HotelReservations.Repositories
             string[] csvValues = csv.Split(',');
 
             var reservation = new Reservation();
+            reservation.Id = int.Parse(csvValues[0]);
+            reservation.RoomNumber = csvValues[1];
+            var reservationType = csvValues[2];
+            reservation.ReservationType = Hotel.GetInstance().ReservationTypes.Find(res => res.ToString() == reservationType);
+            reservation.StartDateTime = DateTime.Parse(csvValues[3]);
+            reservation.EndDateTime = DateTime.Parse(csvValues[4]);
+            reservation.TotalPrice = double.Parse(csvValues[5]);
+            reservation.IsActive = bool.Parse(csvValues[6]);
             return reservation;
         }
 

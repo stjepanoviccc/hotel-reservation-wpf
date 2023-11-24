@@ -62,15 +62,16 @@ namespace HotelReservations.Windows
             }
             // validation passed
 
-            if(!isEditing)
+            if (!isEditing)
             {
                 guestService.SaveGuest(contextGuest);
-            } else
+            }
+            else
             {
                 guestService.SaveGuest(contextGuest, true);
             }
-            
-            DialogResult = true;
+
+        //    DialogResult = true;
             Close();
         }
 

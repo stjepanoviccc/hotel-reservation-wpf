@@ -2,6 +2,7 @@
 using HotelReservations.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,10 @@ namespace HotelReservations.Service
             return Hotel.GetInstance().Guests;
         }
 
-        public void SaveGuest(Guest guest, bool editing=false)
+        public void SaveGuest(Guest guest, bool editing = false)
         {
+
+
             if (guest.Id == 0)
             {
                 guest.Id = GetNextId();
@@ -35,12 +38,24 @@ namespace HotelReservations.Service
 
                 Hotel.GetInstance().Guests.Add(guest);
             }
+
             else
             {
+                int resId = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id).ReservationId;
+                guest.ReservationId = resId;
                 var index = Hotel.GetInstance().Guests.FindIndex(g => g.Id == guest.Id);
                 Hotel.GetInstance().Guests[index] = guest;
                 // DataUtil.PersistData();
                 // DataUtil.LoadData();
+            }
+        }
+
+        public void RewriteGuestIdAfterReservationIsCreated(int newReservationId)
+        {
+            var guestsToRewriteId = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == 0);
+            foreach (Guest guest in guestsToRewriteId)
+            {
+                guest.ReservationId = newReservationId;
             }
         }
 
@@ -51,8 +66,9 @@ namespace HotelReservations.Service
 
         public void MakeGuestInactive(Guest guest)
         {
-            var makeGuestInactive = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id);
-            makeGuestInactive.IsActive = false;
+            var index = Hotel.GetInstance().Guests.FindIndex(g => g.Id == guest.Id);
+            guest.IsActive = false;
+            Hotel.GetInstance().Guests[index] = guest;
         }
     }
 }

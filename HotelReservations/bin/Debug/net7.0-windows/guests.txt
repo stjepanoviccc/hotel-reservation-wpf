@@ -1,3 +1,4 @@
-1,0,Guest,Guest7,0000000000001,False
-2,0,Res,Res,1111111111110,False
-3,0,Guestinho,Guestinho,4445554445557,True
+1,1,Guestt,Guesto,0000000000001,True
+2,1,ada,adas,1231231231231,True
+3,2,as,asdasdasd,1231231231231,True
+4,1,asd,asd,0000000000000,False
