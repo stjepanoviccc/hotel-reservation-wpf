@@ -51,7 +51,7 @@ namespace HotelReservations
                 RoomNumber = "01",
                 HasTV = true,
                 HasMiniBar = true,
-                RoomType = doubleBedRoom,
+                RoomType = singleBedRoom,
                 IsActive = true
             };
 
@@ -99,7 +99,7 @@ namespace HotelReservations
                 Guests = initialGuests,
                 StartDateTime = DateTime.Now,
                 EndDateTime = DateTime.Now,
-                TotalPrice = 20,
+                TotalPrice = 0,
                 IsActive = true
             };
 
@@ -131,20 +131,39 @@ namespace HotelReservations
                 IGuestRepository guestRepository = new GuestRepository();
                 IReservationRepository reservationRepository = new ReservationRepository();
 
-                var loadedRoomTypes = roomTypeRepository.Load();                
-                var loadedUsers = usersRepository.Load();
-                var loadedRooms = roomRepository.Load();
-                var loadedPriceRepository = priceRepository.Load();
-                var loadedGuestsRepository = guestRepository.Load();
-                var loadedReservationRepository = reservationRepository.Load();
-
-                if (loadedRoomTypes != null && loadedRooms != null && loadedUsers != null && loadedPriceRepository != null && loadedGuestsRepository != null && loadedReservationRepository != null)
+                var loadedRoomTypes = roomTypeRepository.Load();
+                if (loadedRoomTypes != null)
                 {
                     Hotel.GetInstance().RoomTypes = loadedRoomTypes;
-                    Hotel.GetInstance().Users = loadedUsers;
+                }
+
+                var loadedRooms = roomRepository.Load();
+                if (loadedRooms != null)
+                {
                     Hotel.GetInstance().Rooms = loadedRooms;
+                }
+
+                var loadedUsers = usersRepository.Load();
+                if (loadedUsers != null)
+                {
+                    Hotel.GetInstance().Users = loadedUsers;
+                }
+
+                var loadedPriceRepository = priceRepository.Load();
+                if (loadedPriceRepository != null)
+                {
                     Hotel.GetInstance().Prices = loadedPriceRepository;
+                }
+
+                var loadedGuestsRepository = guestRepository.Load();
+                if (loadedGuestsRepository != null)
+                {
                     Hotel.GetInstance().Guests = loadedGuestsRepository;
+                }
+
+                var loadedReservationRepository = reservationRepository.Load();
+                if (loadedReservationRepository != null)
+                {
                     Hotel.GetInstance().Reservations = loadedReservationRepository;
                 }
             }

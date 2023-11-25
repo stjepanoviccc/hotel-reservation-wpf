@@ -101,6 +101,23 @@ namespace HotelReservations.Windows
             Show();
         }
 
+        private void FinishReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            var chosenReservation = (Reservation)ReservationsDataGrid.SelectedItem;
+            if (chosenReservation == null)
+            {
+                MessageBox.Show("Please select a Reservation.", "Select Reservation", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            var finishReservationsWindow = new FinishReservation(chosenReservation);
+            Hide();
+            if (finishReservationsWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+            Show();
+        }
+
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             view.Refresh();

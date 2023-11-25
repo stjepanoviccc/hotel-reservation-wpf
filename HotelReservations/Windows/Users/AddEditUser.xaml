@@ -23,7 +23,7 @@
     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" >
         <StackPanel Orientation="Horizontal" >
             <Label Height="30" Width="150" Content="User type:" Margin="0,0,0,20"/>
-                <ComboBox Name="UserTypeCB" Height="30" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+                <ComboBox Name="UserTypeCB" Height="30" Width="150" VerticalContentAlignment="Center" Margin="0,0,0,15" SelectedItem="{Binding UserType}" />
         </StackPanel>
             <StackPanel Orientation="Horizontal" >
                 <Label Height="30" Width="150" Content="Username: " Margin="0,0,0,20"/>

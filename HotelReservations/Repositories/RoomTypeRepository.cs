@@ -12,7 +12,6 @@ namespace HotelReservations.Repositories
 {
     public class RoomTypeRepository : IRoomTypeRepository
     {
-
         public string ToCSV(RoomType roomType) 
         {
             return $"{roomType.Id},{roomType.Name},{roomType.IsActive}";

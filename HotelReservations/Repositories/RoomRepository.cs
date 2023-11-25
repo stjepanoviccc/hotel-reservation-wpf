@@ -14,7 +14,7 @@ namespace HotelReservations.Repository
     {
         private string ToCSV(Room room)
         {
-            return $"{room.Id},{room.RoomNumber},{room.HasTV},{room.HasMiniBar},{room.RoomType.Id},{room.IsActive}";
+            return $"{room.Id},{room.RoomNumber},{room.HasTV},{room.HasMiniBar},{room.RoomType.Id},{room.IsActive},{room.IsReserved}";
         }
 
         private Room FromCSV(string csv)
@@ -29,6 +29,7 @@ namespace HotelReservations.Repository
             var roomTypeId = int.Parse(csvValues[4]);
             room.RoomType = Hotel.GetInstance().RoomTypes.Find(rt => rt.Id == roomTypeId);
             room.IsActive = bool.Parse(csvValues[5]);
+            room.IsReserved = bool.Parse(csvValues[6]);
 
             return room;
         }

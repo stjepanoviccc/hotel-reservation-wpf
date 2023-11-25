@@ -14,6 +14,7 @@ namespace HotelReservations.Service
         {
             return Hotel.GetInstance().Prices;
         }
+
         public void SavePrice(Price price)
         {
             if (price.Id == 0)

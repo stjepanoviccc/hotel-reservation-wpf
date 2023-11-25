@@ -12,11 +12,16 @@ namespace HotelReservations.Service
     internal class ReservationService
     {
         IReservationRepository reservationRepository;
+        PriceService priceService;
         GuestService guestService;
+        RoomService roomService;
+
         public ReservationService()
         {
             reservationRepository = new ReservationRepository();
             guestService = new GuestService();
+            priceService = new PriceService();
+            roomService = new RoomService();
         }
 
         public List<Reservation> GetAllReservations()
@@ -52,6 +57,9 @@ namespace HotelReservations.Service
             // this will rewrite guests ID!
             guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
             reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
+
+            // make room reserved
+            roomService.GetRoomByRoomNumber(reservation.RoomNumber).IsReserved = true;
         }
 
         // delete;
@@ -59,6 +67,33 @@ namespace HotelReservations.Service
         {
             var makeReservationInactive = Hotel.GetInstance().Reservations.Find(r => r.Id == reservation.Id);
             makeReservationInactive.IsActive = false;
+        }
+
+        public double FinishReservation(Reservation reservation)
+        {
+            var resType = reservation.ReservationType;
+            int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
+
+            Room room = roomService.GetRoomByRoomNumber(reservation.RoomNumber);
+            Price price = priceService.GetAllPrices().Find(price => price.RoomType.ToString() == room.RoomType.ToString() && price.ReservationType == resType);
+
+            reservation.TotalPrice = dateDifference * price.PriceValue;
+
+            MakeReservationInactive(reservation);
+            roomService.GetRoomByRoomNumber(reservation.RoomNumber).IsReserved = false;
+
+            return reservation.TotalPrice;
+        }
+
+        public int GetDateDifference(DateTime start, DateTime end)
+        {
+            if (start.Date == end.Date)
+            {
+                return 1;
+            }
+            
+            TimeSpan difference = end.Date - start.Date;
+            return (int)difference.TotalDays;
         }
 
         public int GetNextId()

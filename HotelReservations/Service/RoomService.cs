@@ -36,6 +36,12 @@ namespace HotelReservations.Service
             return filteredRooms;
         }
 
+        public Room GetRoomByRoomNumber(string roomNumber)
+        {
+            Room room = Hotel.GetInstance().Rooms.Find(rn => rn.RoomNumber == roomNumber);
+            return room;
+        }
+
         // add
         public void SaveRoom(Room room)
         {

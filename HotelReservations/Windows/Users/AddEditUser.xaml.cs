@@ -55,7 +55,6 @@ namespace HotelReservations.Windows
             }
             else
             {
-                UserTypeCB.SelectedIndex = 0;
                 Title = "Add User";
             }
         }
