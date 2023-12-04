@@ -57,9 +57,6 @@ namespace HotelReservations.Service
             // this will rewrite guests ID!
             guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
             reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
-
-            // make room reserved
-            roomService.GetRoomByRoomNumber(reservation.RoomNumber).IsReserved = true;
         }
 
         // delete;
@@ -80,7 +77,6 @@ namespace HotelReservations.Service
             reservation.TotalPrice = dateDifference * price.PriceValue;
 
             MakeReservationInactive(reservation);
-            roomService.GetRoomByRoomNumber(reservation.RoomNumber).IsReserved = false;
 
             return reservation.TotalPrice;
         }

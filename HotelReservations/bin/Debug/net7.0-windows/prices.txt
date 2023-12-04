@@ -1,6 +1,0 @@
-1,1,Day,20,True
-2,1,Night,30,True
-3,2,Day,30,True
-4,2,Night,40,True
-5,3,Day,40,True
-6,3,Night,50,True

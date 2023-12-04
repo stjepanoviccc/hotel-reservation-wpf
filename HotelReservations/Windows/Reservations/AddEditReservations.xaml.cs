@@ -156,12 +156,6 @@ namespace HotelReservations.Windows
             DateTime? startDate = StartDatePicker.SelectedDate;
             DateTime? endDate = EndDatePicker.SelectedDate;
 
-            if(selectedRoom.IsReserved && !isEditing)
-            {
-                MessageBox.Show("This room is reserved");
-                return;
-            }
-
             if (selectedRoom == null)
             {
                 MessageBox.Show("Please select a room.");

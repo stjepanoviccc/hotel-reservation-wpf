@@ -1,6 +1,0 @@
-1,1,Guestt,Guesto,0000000000001,True
-2,1,ada,adas,1231231231231,True
-3,2,as,asdasdasd,1231231231231,True
-4,1,asd,asd,0000000000000,False
-5,3,Guestinho,Guestinho,0010020030049,True
-6,3,Midan,Midovic,0020030040059,True

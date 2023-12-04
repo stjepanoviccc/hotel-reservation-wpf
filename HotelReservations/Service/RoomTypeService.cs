@@ -1,11 +1,6 @@
 ﻿using HotelReservations.Repositories;
 using HotelReservations.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HotelReservations.Windows;
 
 namespace HotelReservations.Service
 {
@@ -17,7 +12,7 @@ namespace HotelReservations.Service
 
         public RoomTypeService()
         {
-            roomTypeRepository = new RoomTypeRepository();
+            roomTypeRepository = new RoomTypeRepositoryDB();
             roomService = new RoomService();
 
         }
@@ -31,21 +26,15 @@ namespace HotelReservations.Service
         {
             if (roomType.Id == 0)
             {
-                roomType.Id = GetNextId();
+                roomType.Id = roomTypeRepository.Insert(roomType);
                 Hotel.GetInstance().RoomTypes.Add(roomType);
             }
             else
             {
                 var index = Hotel.GetInstance().RoomTypes.FindIndex(r => r.Id == roomType.Id);
                 Hotel.GetInstance().RoomTypes[index] = roomType;
-                DataUtil.PersistData();
-                DataUtil.LoadData();
+                roomTypeRepository.Update(roomType);
             }
-        }
-
-        public int GetNextId()
-        {
-            return Hotel.GetInstance().RoomTypes.Max(r => r.Id) + 1;
         }
 
         public RoomType GetRoomTypeByName(string roomTypeName)
@@ -58,6 +47,7 @@ namespace HotelReservations.Service
         {
             var makeRoomTypeInactive = Hotel.GetInstance().RoomTypes.Find(r => r.Id == roomType.Id);
             makeRoomTypeInactive.IsActive = false;
+            roomTypeRepository.Delete(roomType.Id);
         }
 
         public bool IsRoomTypeInUse(RoomType roomType)

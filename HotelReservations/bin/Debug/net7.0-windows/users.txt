@@ -1,2 +1,0 @@
-1,andrej,Andrej,Stjepanovic,password,22110019955441,Administrator,True
-2,memezar,Svetozar,Stojkov,password,7676767676764,Administrator,True

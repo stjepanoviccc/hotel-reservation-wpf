@@ -31,8 +31,6 @@ namespace HotelReservations.Model
         public RoomType? RoomType { get; set; } = null;
         public bool IsActive { get; set; } = true;
 
-        public bool IsReserved { get; set; } = false;
-
         public override string ToString()
         {
             //return "Room number: " + RoomNumber; // ...
@@ -48,7 +46,6 @@ namespace HotelReservations.Model
             clone.HasMiniBar = HasMiniBar;
             clone.RoomType = RoomType;
             clone.IsActive = IsActive;
-            clone.IsReserved = IsReserved;
 
             return clone;
         }

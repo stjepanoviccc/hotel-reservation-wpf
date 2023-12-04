@@ -9,8 +9,12 @@ namespace HotelReservations.Repositories
 {
     public interface IRoomTypeRepository
     {
-        List<RoomType> Load();
+        void Delete(int roomTypeId);
 
-        void Save(List<RoomType> roomTypes);
+        List<RoomType> GetAll();
+
+        int Insert(RoomType roomType);
+
+        void Update(RoomType roomType);
     }
 }

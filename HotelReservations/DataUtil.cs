@@ -1,14 +1,8 @@
 ﻿using HotelReservations.Repositories;
-using HotelReservations.Service;
 using HotelReservations.Exceptions;
 using HotelReservations.Model;
 using HotelReservations.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace HotelReservations
 {
@@ -20,7 +14,7 @@ namespace HotelReservations
             hotel.Id = 1;
             hotel.Name = "Hotel Park";
             hotel.Address = "Kod Futoskog parka...";
-
+            /*
             var singleBedRoom = new RoomType()
             {
                 Id = 1,
@@ -34,7 +28,7 @@ namespace HotelReservations
                 Name = "Double Bed",
                 IsActive = true
             };
-
+           
             var room1 = new Room()
             {
                 Id = 1,
@@ -53,13 +47,7 @@ namespace HotelReservations
                 HasMiniBar = true,
                 RoomType = singleBedRoom,
                 IsActive = true
-            };
-
-            var resTypeDay = ReservationType.Day;
-            var resTypeNight = ReservationType.Night;
-
-            var userTypeAdministrator = UserType.Administrator;
-            var userTypeReceptionist = UserType.Receptionist;
+            }; 
 
             Price price1 = new Price()
             {
@@ -107,43 +95,52 @@ namespace HotelReservations
 
             hotel.Guests.Add(testGuest);
 
-            hotel.UserTypes.Add(userTypeAdministrator);
-            hotel.UserTypes.Add(userTypeReceptionist);
-
-            hotel.ReservationTypes.Add(resTypeDay);
-            hotel.ReservationTypes.Add(resTypeNight);
-
             hotel.RoomTypes.Add(singleBedRoom);
             hotel.RoomTypes.Add(doubleBedRoom);
 
             hotel.Prices.Add(price1);
             hotel.Prices.Add(price2);
 
+          
             hotel.Rooms.Add(room1);
             hotel.Rooms.Add(room2);
+            */
+
+
+            var resTypeDay = ReservationType.Day;
+            var resTypeNight = ReservationType.Night;
+
+            var userTypeAdministrator = UserType.Administrator;
+            var userTypeReceptionist = UserType.Receptionist;
+
+            hotel.UserTypes.Add(userTypeAdministrator);
+            hotel.UserTypes.Add(userTypeReceptionist);
+
+            hotel.ReservationTypes.Add(resTypeDay);
+            hotel.ReservationTypes.Add(resTypeNight);
 
             try
             {
-                IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
-                IUserRepository usersRepository = new UserRepository();
-                IRoomRepository roomRepository = new RoomRepository();
+                IRoomTypeRepository roomTypeRepository = new RoomTypeRepositoryDB();
+                IUserRepository usersRepository = new UserRepositoryDB();
+                IRoomRepository roomRepository = new RoomRepositoryDB();
                 IPriceRepository priceRepository = new PriceRepository();
                 IGuestRepository guestRepository = new GuestRepository();
                 IReservationRepository reservationRepository = new ReservationRepository();
 
-                var loadedRoomTypes = roomTypeRepository.Load();
+                var loadedRoomTypes = roomTypeRepository.GetAll();
                 if (loadedRoomTypes != null)
                 {
                     Hotel.GetInstance().RoomTypes = loadedRoomTypes;
                 }
 
-                var loadedRooms = roomRepository.Load();
+                var loadedRooms = roomRepository.GetAll();
                 if (loadedRooms != null)
                 {
                     Hotel.GetInstance().Rooms = loadedRooms;
                 }
 
-                var loadedUsers = usersRepository.Load();
+                var loadedUsers = usersRepository.GetAll();
                 if (loadedUsers != null)
                 {
                     Hotel.GetInstance().Users = loadedUsers;
@@ -181,16 +178,10 @@ namespace HotelReservations
         {
             try
             {
-                IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
-                IUserRepository usersRepository = new UserRepository();
-                IRoomRepository roomRepository = new RoomRepository();
                 IPriceRepository priceRepository = new PriceRepository();
                 IGuestRepository guestRepository = new GuestRepository();
                 IReservationRepository reservationRepository = new ReservationRepository();
 
-                usersRepository.Save(Hotel.GetInstance().Users);
-                roomTypeRepository.Save(Hotel.GetInstance().RoomTypes);
-                roomRepository.Save(Hotel.GetInstance().Rooms);
                 priceRepository.Save(Hotel.GetInstance().Prices);
                 guestRepository.Save(Hotel.GetInstance().Guests);
                 reservationRepository.Save(Hotel.GetInstance().Reservations);
