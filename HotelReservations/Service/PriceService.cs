@@ -1,14 +1,17 @@
 ﻿using HotelReservations.Model;
-using System;
+using HotelReservations.Repositories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelReservations.Service
 {
-    class PriceService
+    public class PriceService
     {
+        IPriceRepository priceRepository;
+
+        public PriceService()
+        {
+            priceRepository = new PriceRepositoryDB();
+        }
 
         public List<Price> GetAllPrices()
         {
@@ -19,27 +22,22 @@ namespace HotelReservations.Service
         {
             if (price.Id == 0)
             {
-                price.Id = GetNextId();
                 Hotel.GetInstance().Prices.Add(price);
+                price.Id = priceRepository.Insert(price);
             }
             else
             {
                 var index = Hotel.GetInstance().Prices.FindIndex(p => p.Id == price.Id);
                 Hotel.GetInstance().Prices[index] = price;
-                // DataUtil.PersistData();
-                // DataUtil.LoadData();
+                priceRepository.Update(price);
             }
-        }
-
-        public int GetNextId()
-        {
-            return Hotel.GetInstance().Prices.Max(p => p.Id) + 1;
         }
 
         public void MakePriceInactive(Price price)
         {
             var makePriceInactive = Hotel.GetInstance().Prices.Find(p => p.Id == price.Id);
             makePriceInactive.IsActive = false;
+            priceRepository.Delete(price.Id);
         }
     }
 }

@@ -108,10 +108,6 @@ namespace HotelReservations.Windows
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }
-
-            if (e.PropertyName.ToLower() == "Id".ToLower()) {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
         }
 
         private void RoomTypeSearchTB_PreviewKeyUp(object sender, KeyEventArgs e)

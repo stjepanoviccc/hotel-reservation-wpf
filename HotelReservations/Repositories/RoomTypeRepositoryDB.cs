@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
+using System;
 
 namespace HotelReservations.Repositories
 {
@@ -9,29 +10,38 @@ namespace HotelReservations.Repositories
     {
         public List<RoomType> GetAll()
         {
-            var roomTypes = new List<RoomType>();
-            using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
+            try
             {
-                var commandText = "SELECT * FROM dbo.room_type";
-                SqlDataAdapter adapter = new SqlDataAdapter(commandText, conn);
-
-                DataSet dataSet = new DataSet();
-                adapter.Fill(dataSet, "room_type");
-
-                foreach (DataRow row in dataSet.Tables["room_type"]!.Rows)
+                var roomTypes = new List<RoomType>();
+                using (SqlConnection conn = new SqlConnection(Config.CONNECTION_STRING))
                 {
-                    var roomType = new RoomType()
+                    var commandText = "SELECT * FROM dbo.room_type";
+                    SqlDataAdapter adapter = new SqlDataAdapter(commandText, conn);
+
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet, "room_type");
+
+                    foreach (DataRow row in dataSet.Tables["room_type"]!.Rows)
                     {
-                        Id = (int)row["room_type_id"],
-                        Name = (string)row["room_type_name"],
-                        IsActive = (bool)row["room_type_is_active"],
-                    };
+                        var roomType = new RoomType()
+                        {
+                            Id = (int)row["room_type_id"],
+                            Name = (string)row["room_type_name"],
+                            IsActive = (bool)row["room_type_is_active"],
+                        };
 
-                    roomTypes.Add(roomType);
+                        roomTypes.Add(roomType);
+                    }
                 }
-            }
 
-            return roomTypes;
+                return roomTypes;
+
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            
         }
 
         public int Insert(RoomType roomType)

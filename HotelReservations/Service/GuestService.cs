@@ -1,20 +1,17 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelReservations.Service
 {
     public class GuestService
     {
         IGuestRepository guestRepository;
+        int contextLastId = 0;
         public GuestService()
         {
-            guestRepository = new GuestRepository();
+            guestRepository = new GuestRepositoryDB();
         }
 
         public List<Guest> GetAllGuests()
@@ -24,17 +21,9 @@ namespace HotelReservations.Service
 
         public void SaveGuest(Guest guest, bool editing = false)
         {
-
-
-            if (guest.Id == 0)
+            if (guest.Id == 0 && editing == false)
             {
-                guest.Id = GetNextId();
-
-                // if im adding because res isnt created yet
-                if (!editing)
-                {
-                    guest.ReservationId = 0;
-                }
+                guest.ReservationId = 0;
 
                 Hotel.GetInstance().Guests.Add(guest);
             }
@@ -43,10 +32,9 @@ namespace HotelReservations.Service
             {
                 int resId = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id).ReservationId;
                 guest.ReservationId = resId;
-                var index = Hotel.GetInstance().Guests.FindIndex(g => g.Id == guest.Id);
+                var index = Hotel.GetInstance().Guests.FindIndex(g => (g.Id == guest.Id)&&(g.JMBG == guest.JMBG));
                 Hotel.GetInstance().Guests[index] = guest;
-                // DataUtil.PersistData();
-                // DataUtil.LoadData();
+                guestRepository.Update(guest);
             }
         }
 
@@ -56,19 +44,20 @@ namespace HotelReservations.Service
             foreach (Guest guest in guestsToRewriteId)
             {
                 guest.ReservationId = newReservationId;
+                // it will be added to database after getting real res id, not fake for in-memory.
+                guestRepository.Insert(guest);
             }
-        }
-
-        public int GetNextId()
-        {
-            return Hotel.GetInstance().Guests.Max(g => g.Id) + 1;
         }
 
         public void MakeGuestInactive(Guest guest)
         {
+            /*
             var index = Hotel.GetInstance().Guests.FindIndex(g => g.Id == guest.Id);
             guest.IsActive = false;
-            Hotel.GetInstance().Guests[index] = guest;
+            Hotel.GetInstance().Guests[index] = guest; */
+            var makeGuestInactive = Hotel.GetInstance().Guests.Find(g => (g.Id == guest.Id) && (g.JMBG == guest.JMBG));
+            makeGuestInactive.IsActive = false;
+            guestRepository.Delete(guest.Id);
         }
     }
 }

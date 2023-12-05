@@ -1,11 +1,8 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Repositories;
-using HotelReservations.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelReservations.Service
 {
@@ -18,7 +15,7 @@ namespace HotelReservations.Service
 
         public ReservationService()
         {
-            reservationRepository = new ReservationRepository();
+            reservationRepository = new ReservationRepositoryDB();
             guestService = new GuestService();
             priceService = new PriceService();
             roomService = new RoomService();
@@ -43,30 +40,50 @@ namespace HotelReservations.Service
                 reservation.ReservationType = ReservationType.Night;
             }
 
+            // if its 0, then its adding
             if (reservation.Id == 0)
             {
-                reservation.Id = GetNextId();
                 Hotel.GetInstance().Reservations.Add(reservation);
+                reservation.TotalPrice = CountPrice(reservation);
+
+                reservation.Id = reservationRepository.Insert(reservation);
+
+                // this will rewrite guests ID!
+                guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
+                reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
             }
+            // otherwise, update.
             else
             {
-                var index = Hotel.GetInstance().Rooms.FindIndex(r => r.Id == reservation.Id);
-                Hotel.GetInstance().Reservations[index] = reservation;
+                reservation.TotalPrice = CountPrice(reservation);
+                var r = Hotel.GetInstance().Reservations.First(r => r.Id == reservation.Id);
+
+                r.TotalPrice = reservation.TotalPrice;
+                r.StartDateTime = reservation.StartDateTime;
+                r.EndDateTime = reservation.EndDateTime;
+
+                reservationRepository.Update(reservation);
+            }
+        }
+
+        // delete or finishing res;
+        public void MakeReservationInactive(Reservation reservation, bool finish = false)
+        {
+            var res = Hotel.GetInstance().Reservations.Find(r => r.Id == reservation.Id);
+            res.IsActive = false;
+
+            // so now if finish is true i will just update state otherwise i will delete(make inactive) :)
+            if (finish == true)
+            {
+                res.IsFinished = true;
+                reservationRepository.Update(res);
+                return;
             }
 
-            // this will rewrite guests ID!
-            guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
-            reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
+            reservationRepository.Delete(res.Id);
         }
 
-        // delete;
-        public void MakeReservationInactive(Reservation reservation)
-        {
-            var makeReservationInactive = Hotel.GetInstance().Reservations.Find(r => r.Id == reservation.Id);
-            makeReservationInactive.IsActive = false;
-        }
-
-        public double FinishReservation(Reservation reservation)
+        public double CountPrice(Reservation reservation)
         {
             var resType = reservation.ReservationType;
             int dateDifference = GetDateDifference(reservation.StartDateTime, reservation.EndDateTime);
@@ -75,9 +92,14 @@ namespace HotelReservations.Service
             Price price = priceService.GetAllPrices().Find(price => price.RoomType.ToString() == room.RoomType.ToString() && price.ReservationType == resType);
 
             reservation.TotalPrice = dateDifference * price.PriceValue;
+            return reservation.TotalPrice;
+        }
 
-            MakeReservationInactive(reservation);
-
+        public double FinishReservation(Reservation reservation)
+        {
+            // i made this variable so its easier for you to debug
+            bool finishing = true;
+            MakeReservationInactive(reservation, finishing);
             return reservation.TotalPrice;
         }
 
@@ -90,11 +112,6 @@ namespace HotelReservations.Service
             
             TimeSpan difference = end.Date - start.Date;
             return (int)difference.TotalDays;
-        }
-
-        public int GetNextId()
-        {
-            return Hotel.GetInstance().Reservations.Max(r => r.Id) + 1;
         }
     }
 }

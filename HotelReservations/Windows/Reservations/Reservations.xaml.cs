@@ -1,19 +1,11 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Service;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
@@ -126,6 +118,16 @@ namespace HotelReservations.Windows
         private void ReservationsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.PropertyName.ToLower() == "IsActive".ToLower())
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
+
+            if (e.PropertyName.ToLower() == "Guests".ToLower())
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
+
+            if (e.PropertyName.ToLower() == "IsFinished".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }

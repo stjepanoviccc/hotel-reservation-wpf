@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelReservations.Model
 {
@@ -17,6 +13,7 @@ namespace HotelReservations.Model
         public DateTime EndDateTime { get; set; }
         public double TotalPrice { get; set; } = 0;
         public bool IsActive { get; set; } = true;
+        public bool IsFinished { get; set; } = false;
         public Reservation Clone()
         {
             var clone = new Reservation();
@@ -28,6 +25,7 @@ namespace HotelReservations.Model
             clone.EndDateTime = EndDateTime;
             clone.TotalPrice = TotalPrice;
             clone.IsActive = IsActive;
+            clone.IsFinished = IsFinished;
 
             return clone;
         }
