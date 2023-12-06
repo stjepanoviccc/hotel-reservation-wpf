@@ -123,6 +123,17 @@ namespace HotelReservations.Windows
             Show();
         }
 
+        private void CheckFinishedReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            var showFinishedReservationWindow = new FinishedReservations();
+            Hide();
+            if (showFinishedReservationWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+            Show();
+        }
+
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             view.Refresh();
@@ -141,6 +152,11 @@ namespace HotelReservations.Windows
             }
 
             if (e.PropertyName.ToLower() == "IsFinished".ToLower())
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
+
+            if (e.PropertyName.ToLower() == "Id".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }

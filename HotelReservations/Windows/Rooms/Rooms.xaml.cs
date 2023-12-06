@@ -35,14 +35,6 @@ namespace HotelReservations.Windows
             RoomsDataGrid.SelectedItem = null;
         }
 
-        private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            if (e.PropertyName.ToLower() == "IsActive".ToLower())
-            {
-                e.Column.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private bool DoFilter(object roomObject)
         {
             var room = roomObject as Room;
@@ -104,6 +96,18 @@ namespace HotelReservations.Windows
         private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             view.Refresh();
+        }
+
+        private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName.ToLower() == "IsActive".ToLower())
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
+            if (e.PropertyName.ToLower() == "Id".ToLower())
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

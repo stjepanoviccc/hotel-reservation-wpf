@@ -30,6 +30,8 @@
                     Margin="5,0,0,0" Click="FinishReservationButton_Click"></Button>
             <Button Name="ActiveReservationButton" Content="Check Active Reservations" Background="Gray" Foreground="White" BorderBrush="Black" 
                     Padding="5,0,5,0" Margin="5,0,0,0" Click="CheckActiveReservationButton_Click"></Button>
+            <Button Name="FinishedReservationButton" Content="Check Finished Reservations" Background="Gray" Foreground="White" BorderBrush="Black" 
+        Padding="5,0,5,0" Margin="5,0,0,0" Click="CheckFinishedReservationButton_Click"></Button>
         </ToolBar>
 
         <DataGrid SelectionMode="Single" Grid.Row="2" Name="ReservationsDataGrid" IsReadOnly="True" AutoGeneratingColumn="ReservationsDataGrid_AutoGeneratingColumn">

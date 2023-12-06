@@ -4,8 +4,10 @@ FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\MainWindow.xa
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Prices\AddEditPrices.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Prices\DeletePrices.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Prices\Prices.xaml;;
+FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\ActiveReservations.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\AddEditReservations.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\DeleteReservations.xaml;;
+FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\FinishedReservations.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\FinishReservation.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\Guests\AddEditGuest.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\Guests\DeleteGuest.xaml;;
@@ -19,5 +21,4 @@ FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\RoomT
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Users\AddEditUser.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Users\DeleteUser.xaml;;
 FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Users\Users.xaml;;
-FC:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\Windows\Reservations\ActiveReservations.xaml;;
 

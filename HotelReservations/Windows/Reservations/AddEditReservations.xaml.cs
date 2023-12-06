@@ -249,6 +249,21 @@ namespace HotelReservations.Windows
                 MessageBox.Show("Start date must be equal or earlier than end date.");
                 return;
             }
+
+            var reservations = Hotel.GetInstance().Reservations;
+            foreach (Reservation r in reservations)
+            {
+                if(selectedRoom.RoomNumber == r.RoomNumber && r.IsFinished == false && r.IsActive == true)
+                {
+                    if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
+                    {
+                        MessageBox.Show("Try with different dates, these are overlapping. " + r.StartDateTime + "-" + r.EndDateTime);
+                        return;
+                    }
+                }
+                
+            }
+
             reservationService.SaveReservation(contextReservation, selectedRoom);
             DialogResult = true;
             Close();

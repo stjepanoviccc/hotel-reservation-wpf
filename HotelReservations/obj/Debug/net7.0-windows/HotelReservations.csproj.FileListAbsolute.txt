@@ -91,3 +91,5 @@ C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\HotelReservations.csproj.CopyComplete
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\ActiveReservations.g.cs
 C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\ActiveReservations.baml
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\FinishedReservations.g.cs
+C:\Users\WIN\Desktop\projects\SR18-2022-POP2023\HotelReservations\obj\Debug\net7.0-windows\Windows\Reservations\FinishedReservations.baml

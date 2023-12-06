@@ -3,6 +3,7 @@ using HotelReservations.Service;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace HotelReservations.Windows
 {
@@ -34,6 +35,18 @@ namespace HotelReservations.Windows
 
             ReservationsDataGrid.IsSynchronizedWithCurrentItem = true;
             ReservationsDataGrid.SelectedItem = null;
+        }
+
+        private void GuestsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == "Id")
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
+            if (e.PropertyName == "ReservationId")
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

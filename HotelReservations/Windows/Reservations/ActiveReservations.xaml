@@ -27,7 +27,7 @@
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <DataGrid Name="GuestsDataGrid" IsReadOnly="True" AutoGenerateColumns="True" ItemsSource="{Binding Guests}">
+                    <DataGrid Name="GuestsDataGrid" IsReadOnly="True" AutoGeneratingColumn="GuestsDataGrid_AutoGeneratingColumn" ItemsSource="{Binding Guests}">
                         <DataGrid.Columns>
 
                         </DataGrid.Columns>

@@ -31,8 +31,20 @@ namespace HotelReservations.Service
             }
             else
             {
+                var rooms = Hotel.GetInstance().Rooms;
                 var index = Hotel.GetInstance().RoomTypes.FindIndex(r => r.Id == roomType.Id);
                 Hotel.GetInstance().RoomTypes[index] = roomType;
+
+                // just in memory refresher.
+                foreach (var room in rooms)
+                {
+                    if(room.RoomType.Id == roomType.Id)
+                    {
+                        room.RoomType = roomType;
+                    }
+                }
+
+                // database update
                 roomTypeRepository.Update(roomType);
             }
         }
