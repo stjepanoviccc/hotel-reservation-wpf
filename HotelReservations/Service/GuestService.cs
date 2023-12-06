@@ -8,7 +8,7 @@ namespace HotelReservations.Service
     public class GuestService
     {
         IGuestRepository guestRepository;
-       
+
         public GuestService()
         {
             guestRepository = new GuestRepositoryDB();
@@ -30,7 +30,9 @@ namespace HotelReservations.Service
                 guest.ReservationId = resId;
                 var index = Hotel.GetInstance().Guests.FindIndex(g => (g.Id == guest.Id)&&(g.JMBG == guest.JMBG));
                 Hotel.GetInstance().Guests[index] = guest;
+
                 guestRepository.Update(guest);
+                RefreshGuestsInReservation(guest.ReservationId);
             }
         }
 
@@ -49,7 +51,31 @@ namespace HotelReservations.Service
         {
             var makeGuestInactive = Hotel.GetInstance().Guests.Find(g => (g.Id == guest.Id) && (g.JMBG == guest.JMBG));
             makeGuestInactive.IsActive = false;
+
             guestRepository.Delete(guest.Id);
+            RefreshGuestsInReservation(guest.ReservationId);
         }
+
+        // helper function for refresh in memory after database is updated/deleted :)
+        public void RefreshGuestsInReservation(int forThisReservationId)
+        {
+            foreach (var reservation in Hotel.GetInstance().Reservations)
+            {
+                if (reservation.Id == forThisReservationId)
+                {
+                    reservation.Guests = new List<Guest>();
+
+                    foreach (var guest in Hotel.GetInstance().Guests)
+                    {
+                        if (guest.ReservationId == reservation.Id)
+                        {
+                            reservation.Guests.Add(guest);
+                        }
+                    }
+                }
+            }
+        }
+
+
     }
 }

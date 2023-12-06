@@ -30,7 +30,7 @@ namespace HotelReservations.Service
         {
             reservation.RoomNumber = room.RoomNumber;
 
-            // checking is date sime for deciding what type reservation is.
+            // checking is date equal for deciding what type reservation is. if its equal then its day, if its not equal then its night
             if (reservation.StartDateTime == reservation.EndDateTime)
             {
                 reservation.ReservationType = ReservationType.Day;
@@ -40,7 +40,7 @@ namespace HotelReservations.Service
                 reservation.ReservationType = ReservationType.Night;
             }
 
-            // if its 0(doesnt exist yet), then its adding
+            // if reservation id is "0"(doesnt exist yet), then its adding
             if (reservation.Id == 0)
             {
                 Hotel.GetInstance().Reservations.Add(reservation);
@@ -113,5 +113,6 @@ namespace HotelReservations.Service
             TimeSpan difference = end.Date - start.Date;
             return (int)difference.TotalDays;
         }
+
     }
 }

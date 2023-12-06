@@ -17,8 +17,24 @@
             <Label Content="Active Reservations"></Label>
         </StackPanel>
 
-        <DataGrid SelectionMode="Single" Grid.Row="1" Name="ReservationsDataGrid" IsReadOnly="True" AutoGeneratingColumn="ReservationsDataGrid_AutoGeneratingColumn">
-            
+        <DataGrid SelectionMode="Single" Grid.Row="1" Name="ReservationsDataGrid" IsReadOnly="True" AutoGenerateColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" />
+                <DataGridTextColumn Header="Reservation Type" Binding="{Binding ReservationType}" />
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDateTime}" />
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDateTime}" />
+                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice}" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid Name="GuestsDataGrid" IsReadOnly="True" AutoGenerateColumns="True" ItemsSource="{Binding Guests}">
+                        <DataGrid.Columns>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
         </DataGrid>
+
     </Grid>
 </Window>
