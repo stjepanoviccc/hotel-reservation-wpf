@@ -1,5 +1,6 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Service;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -40,13 +41,14 @@ namespace HotelReservations.Windows
             var res = resObject as Reservation;
 
             var roomNumberSearchParam = RoomNumberSearchTextBox.Text;
+            var startDateSearchParam = StartDateSearchTextBox.Text;
+            var endDateSearchParam = EndDateSearchTextBox.Text;
 
-            if (res.RoomNumber.Contains(roomNumberSearchParam))
-            {
-                return true;
-            }
+            bool isRoomNumberMatch = res.RoomNumber.Contains(roomNumberSearchParam);
+            bool isStartDateMatch = res.StartDateTime.ToShortDateString().Contains(startDateSearchParam);
+            bool isEndDateMatch = res.EndDateTime.ToShortDateString().Contains(endDateSearchParam);
 
-            return false;
+            return isRoomNumberMatch && isStartDateMatch && isEndDateMatch;
         }
 
         private void AddReservationButton_Click(object sender, RoutedEventArgs e)
@@ -104,6 +106,17 @@ namespace HotelReservations.Windows
             var finishReservationsWindow = new FinishReservation(chosenReservation);
             Hide();
             if (finishReservationsWindow.ShowDialog() == true)
+            {
+                FillData();
+            }
+            Show();
+        }
+
+        private void CheckActiveReservationButton_Click(object sender, RoutedEventArgs e)
+        {
+            var showActiveReservationWindow = new ActiveReservations();
+            Hide();
+            if (showActiveReservationWindow.ShowDialog() == true)
             {
                 FillData();
             }

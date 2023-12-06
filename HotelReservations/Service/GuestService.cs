@@ -8,26 +8,22 @@ namespace HotelReservations.Service
     public class GuestService
     {
         IGuestRepository guestRepository;
-        int contextLastId = 0;
+       
         public GuestService()
         {
             guestRepository = new GuestRepositoryDB();
         }
 
-        public List<Guest> GetAllGuests()
-        {
-            return Hotel.GetInstance().Guests;
-        }
-
         public void SaveGuest(Guest guest, bool editing = false)
         {
+            // this means guest will be in memory because reservation isn't created yet.
             if (guest.Id == 0 && editing == false)
             {
                 guest.ReservationId = 0;
-
                 Hotel.GetInstance().Guests.Add(guest);
             }
 
+            // otherwise, its editing guest
             else
             {
                 int resId = Hotel.GetInstance().Guests.Find(g => g.Id == guest.Id).ReservationId;
@@ -44,17 +40,13 @@ namespace HotelReservations.Service
             foreach (Guest guest in guestsToRewriteId)
             {
                 guest.ReservationId = newReservationId;
-                // it will be added to database after getting real res id, not fake for in-memory.
+                // it will be added to database after getting real reservation id(after reservation is created).
                 guestRepository.Insert(guest);
             }
         }
 
         public void MakeGuestInactive(Guest guest)
         {
-            /*
-            var index = Hotel.GetInstance().Guests.FindIndex(g => g.Id == guest.Id);
-            guest.IsActive = false;
-            Hotel.GetInstance().Guests[index] = guest; */
             var makeGuestInactive = Hotel.GetInstance().Guests.Find(g => (g.Id == guest.Id) && (g.JMBG == guest.JMBG));
             makeGuestInactive.IsActive = false;
             guestRepository.Delete(guest.Id);

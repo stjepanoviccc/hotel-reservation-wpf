@@ -15,17 +15,22 @@ namespace HotelReservations.Windows
         private bool isEditing;
         public AddEditGuest(Guest? guest = null)
         {
+            InitializeComponent();
+
             if (guest == null)
             {
                 contextGuest = new Guest();
                 isEditing = false;
+                JMBGTextBox.IsReadOnly = false;
             }
+
             else
             {
                 contextGuest = guest.Clone();
                 isEditing = true;
+                JMBGTextBox.IsReadOnly = true;
             }
-            InitializeComponent();
+
             guestService = new GuestService();
             this.DataContext = contextGuest;
             AdjustWindow(guest);

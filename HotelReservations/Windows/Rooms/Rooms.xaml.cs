@@ -1,19 +1,11 @@
 ﻿using HotelReservations.Model;
 using HotelReservations.Service;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HotelReservations.Windows
 {
@@ -56,13 +48,12 @@ namespace HotelReservations.Windows
             var room = roomObject as Room;
 
             var roomNumberSearchParam = RoomNumberSearchTextBox.Text;
+            var roomTypeSearchParam = RoomTypeSearchTextBox.Text;
 
-            if (room.RoomNumber.Contains(roomNumberSearchParam))
-            {
-                return true;
-            }
+            bool isRoomNumberMatch = room.RoomNumber.Contains(roomNumberSearchParam);
+            bool isRoomTypeMatch = room.RoomType.ToString().Contains(roomTypeSearchParam);
 
-            return false;
+            return isRoomNumberMatch && isRoomTypeMatch;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -110,7 +101,7 @@ namespace HotelReservations.Windows
             Show();
         }
 
-        private void RoomNumberSearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
+        private void SearchTB_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             view.Refresh();
         }

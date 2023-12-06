@@ -106,7 +106,7 @@ namespace HotelReservations.Windows
 
             var userSearchParam = UsernameSearchTextBox.Text;
 
-            if (user.Name.Contains(userSearchParam))
+            if (user.Username.Contains(userSearchParam))
             {
                 return true;
             }

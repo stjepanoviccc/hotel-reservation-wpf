@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelReservations.Model
 {
@@ -10,7 +7,7 @@ namespace HotelReservations.Model
     {
         public int Id { get; set; }
         private string name;
-        public string Name { 
+        public string Name {
             get { return name; }
             set
             {
@@ -31,6 +28,7 @@ namespace HotelReservations.Model
         public List<ReservationType> ReservationTypes { get; set; } = new List<ReservationType>();
         public List<UserType> UserTypes { get; set; } = new List<UserType>();
         public List<Guest> Guests { get; set; } = new List<Guest>();
+        public User loggedInUser { get; set; } = new User();
 
         private Hotel() 
         { 

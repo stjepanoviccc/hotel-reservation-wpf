@@ -1,11 +1,14 @@
 ﻿using HotelReservations.Model;
+using HotelReservations.Repository;
 using HotelReservations.Service;
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace HotelReservations.Windows
 {
@@ -22,25 +25,87 @@ namespace HotelReservations.Windows
         // this will be for creating reservation by picking room
         public AddEditReservations(Reservation? res = null)
         {
+            InitializeComponent();
+
             if (res == null)
             {
                 contextReservation = new Reservation();
                 isEditing = false;
+                AddGuestButton.Visibility = Visibility.Visible;
             }
             else
             {
                 contextReservation = res.Clone();
                 isEditing = true;
+                AddGuestButton.Visibility = Visibility.Hidden;
             }
-            InitializeComponent();
+
             reservationService = new ReservationService();
             AdjustWindow(res);
             FillData(res);
             this.DataContext = contextReservation;
         }
 
+        private bool DoFilter(object roomObject)
+        {
+            var room = roomObject as Room;
+            var reservations = Hotel.GetInstance().Reservations.Where(res => res.RoomNumber == room.RoomNumber);
+
+            var roomTypeValue = RoomTypeComboBox.SelectedValue;
+            DateTime? startDate = CheckStartDate.SelectedDate;
+            DateTime? endDate = CheckEndDate.SelectedDate;
+
+            /* you might be a little bit confused here so i will explain short
+            im checking is room type even selected so if its not selected i will just return true */
+            
+            if (roomTypeValue != null && roomTypeValue != "")
+            {
+                // if its selected then we will compare and also we will iterate over loop to check are dates overlapping(means available dates if not overlap)
+                bool roomType = room.RoomType.ToString() == roomTypeValue.ToString();
+
+                if(roomType == false)
+                {
+                    return false;
+                }
+
+                foreach (Reservation r in reservations)
+                {
+                    if (AreDatesOverlapping(startDate, endDate, r.StartDateTime, r.EndDateTime))
+                    {
+                        return false; // If there is an overlap, return false
+                    }
+                }
+
+            }
+
+            return true;
+        }
+
+        // this is just helper function to check are dates overlapping
+        private bool AreDatesOverlapping(DateTime? start1, DateTime? end1, DateTime? start2, DateTime? end2)
+        {
+            if (!start1.HasValue || !end1.HasValue || !start2.HasValue || !end2.HasValue)
+            {
+                return false; // if something is null, its no overlapped
+            }
+
+            if (start1 >= start2 && start1 <= end2)
+            {
+                return true;
+            }
+            if (end1 >= start2 && end1 <= end2)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private void AdjustWindow(Reservation? res = null)
         {
+            var roomTypeList = Hotel.GetInstance().RoomTypes.Where(roomType => roomType.IsActive).ToList();
+            RoomTypeComboBox.ItemsSource = roomTypeList;
+
             if (res != null)
             {
                 Title = "Edit Reservation";
@@ -54,10 +119,10 @@ namespace HotelReservations.Windows
         public void FillData(Reservation? res = null, Guest? newGuest = null)
         {
             var guests = Hotel.GetInstance().Guests.Where(g => g.IsActive && g.ReservationId == 0);
+
             if (isEditing)
             {
                 guests = Hotel.GetInstance().Guests?.Where(g => g.ReservationId == contextReservation.Id && g.IsActive) ?? Enumerable.Empty<Guest>();
-                var ress = res;
             }
 
             if (newGuest != null)
@@ -67,17 +132,19 @@ namespace HotelReservations.Windows
 
             var rooms = Hotel.GetInstance().Rooms.Where(room => room.IsActive).ToList();
 
-            view = CollectionViewSource.GetDefaultView(rooms);
-            RoomsDataGrid.ItemsSource = null;
-            RoomsDataGrid.ItemsSource = view;
-            RoomsDataGrid.IsSynchronizedWithCurrentItem = true;
-            RoomsDataGrid.SelectedItem = null;
-
             view = CollectionViewSource.GetDefaultView(guests);
             GuestsDataGrid.ItemsSource = null;
             GuestsDataGrid.ItemsSource = view;
             GuestsDataGrid.IsSynchronizedWithCurrentItem = true;
             GuestsDataGrid.SelectedItem = null;
+
+            view = CollectionViewSource.GetDefaultView(rooms);
+            view.Filter = DoFilter;
+            RoomsDataGrid.ItemsSource = null;
+            RoomsDataGrid.ItemsSource = view;
+            RoomsDataGrid.IsSynchronizedWithCurrentItem = true;
+            RoomsDataGrid.SelectedItem = null;
+
         }
 
         private void RoomsDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -98,7 +165,7 @@ namespace HotelReservations.Windows
             if (e.PropertyName.ToLower() == "Id".ToLower())
             {
                 e.Column.Visibility = Visibility.Collapsed;
-            }
+            } 
 
             if (e.PropertyName.ToLower() == "ReservationId".ToLower())
             {
@@ -192,5 +259,11 @@ namespace HotelReservations.Windows
             DialogResult = false;
             Close();
         }
+
+        private void CheckAvailableRoomsButton_Click(object sender, RoutedEventArgs e)
+        {
+            view.Refresh();
+        }
+
     }
 }

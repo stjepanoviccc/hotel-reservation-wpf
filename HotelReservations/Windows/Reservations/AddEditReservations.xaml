@@ -8,7 +8,7 @@
         Title="AddEditReservations" Height="800" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
@@ -18,7 +18,15 @@
         </Grid.RowDefinitions>
 
         <ToolBar Grid.Row="0">
-            <Label Content="Rooms" Width="90"/>
+            <Label Content="Rooms" VerticalContentAlignment="Center" Width="90"/>
+            <Label Content="Room type:" VerticalContentAlignment="Center" Width="70"/>
+            <ComboBox Name="RoomTypeComboBox" Width="150" Height="30" VerticalContentAlignment="Center" BorderBrush="Black"/>
+            <Label Content="Start:" VerticalContentAlignment="Center" Width="90"/>
+            <DatePicker Name="CheckStartDate" Margin="5,0,5,0" VerticalContentAlignment="Center"/>
+            <Label Content="End:" Width="90" VerticalContentAlignment="Center"/>
+            <DatePicker Name="CheckEndDate" Margin="5,0,5,0" VerticalContentAlignment="Center" />
+            <Button Name="CheckAvailableRoomsButton" Content="Check available rooms" BorderBrush="Black" Padding="5,0,5,0" Margin="105,0,0,0" 
+                    Click="CheckAvailableRoomsButton_Click"></Button>
         </ToolBar>
 
         <DataGrid SelectionMode="Single" Grid.Row="1" Name="RoomsDataGrid" IsReadOnly="True" AutoGeneratingColumn="RoomsDataGrid_AutoGeneratingColumn">

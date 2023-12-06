@@ -26,11 +26,11 @@ namespace HotelReservations.Service
             return Hotel.GetInstance().Reservations;
         }
 
-        // add
         public void SaveReservation(Reservation reservation, Room room)
         {
             reservation.RoomNumber = room.RoomNumber;
 
+            // checking is date sime for deciding what type reservation is.
             if (reservation.StartDateTime == reservation.EndDateTime)
             {
                 reservation.ReservationType = ReservationType.Day;
@@ -40,7 +40,7 @@ namespace HotelReservations.Service
                 reservation.ReservationType = ReservationType.Night;
             }
 
-            // if its 0, then its adding
+            // if its 0(doesnt exist yet), then its adding
             if (reservation.Id == 0)
             {
                 Hotel.GetInstance().Reservations.Add(reservation);
@@ -48,11 +48,12 @@ namespace HotelReservations.Service
 
                 reservation.Id = reservationRepository.Insert(reservation);
 
-                // this will rewrite guests ID!
+                // this will rewrite guests ID(because all have fake id(reservation not added yet so i have to rewrite all guest's reservation ID to this one ));
                 guestService.RewriteGuestIdAfterReservationIsCreated(reservation.Id);
                 reservation.Guests = Hotel.GetInstance().Guests.Where(guest => guest.ReservationId == reservation.Id).ToList();
             }
-            // otherwise, update.
+
+            // otherwise, update reservation.
             else
             {
                 reservation.TotalPrice = CountPrice(reservation);
@@ -97,12 +98,11 @@ namespace HotelReservations.Service
 
         public double FinishReservation(Reservation reservation)
         {
-            // i made this variable so its easier for you to debug
-            bool finishing = true;
-            MakeReservationInactive(reservation, finishing);
+            MakeReservationInactive(reservation, true);
             return reservation.TotalPrice;
         }
 
+        // count date difference for reservation
         public int GetDateDifference(DateTime start, DateTime end)
         {
             if (start.Date == end.Date)

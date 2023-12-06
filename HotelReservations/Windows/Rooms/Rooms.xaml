@@ -15,7 +15,9 @@
         
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Label Content="Room number:" VerticalContentAlignment="Center"/>
-            <TextBox Name="RoomNumberSearchTextBox" Height="24" Width="150" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="RoomNumberSearchTB_PreviewKeyUp"/>
+            <TextBox Name="RoomNumberSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
+            <Label Content="Room type:" VerticalContentAlignment="Center" Width="70"/>
+            <TextBox Name="RoomTypeSearchTextBox" Height="24" Width="100" Margin="3" VerticalContentAlignment="Center" PreviewKeyUp="SearchTB_PreviewKeyUp"/>
         </StackPanel>
 
         <ToolBar Grid.Row="1">

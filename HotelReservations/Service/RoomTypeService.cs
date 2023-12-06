@@ -50,6 +50,7 @@ namespace HotelReservations.Service
             roomTypeRepository.Delete(roomType.Id);
         }
 
+        // validation method for checking does roomtype already exist ( i could do that in validate block but i wanted to make it more clean
         public bool IsRoomTypeInUse(RoomType roomType)
         {
             foreach (Room room in Hotel.GetInstance().Rooms)

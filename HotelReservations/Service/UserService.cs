@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace HotelReservations.Service
 {
-    internal class UserService
+    public class UserService
     {
         IUserRepository userRepository;
         public UserService()
